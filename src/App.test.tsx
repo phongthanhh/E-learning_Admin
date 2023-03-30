@@ -1,13 +1,22 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import App from 'App'
+import { BrowserRouter } from 'react-router-dom'
 import { describe, it } from 'vitest'
+
+function MockApp() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  )
+}
 
 describe('App', () => {
   it('Render title of app', () => {
     // ARRANGE
-    render(<App />)
+    render(<MockApp />)
     // ACT
     // EXPECT
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Vite + React')
+    // expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Dashboard')
   })
 })

@@ -1,1 +1,3 @@
-export {}
+import AdminLayout from './admin'
+
+export { AdminLayout }
