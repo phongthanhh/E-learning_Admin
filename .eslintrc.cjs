@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    'linebreak-style': 0,
     'react/react-in-jsx-scope': 0,
     'import/prefer-default-export': ['off', { target: 'any' }],
     'react-hooks/rules-of-hooks': 'error',
