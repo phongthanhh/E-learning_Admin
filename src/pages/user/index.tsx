@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import * as React from 'react'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { Paper, Button } from '@mui/material'
 
 const columns: GridColDef[] = [
   { field: 'taiKhoan', headerName: 'Tài Khoản', width: 150 },
@@ -52,11 +53,21 @@ const rows = [
 
 export default function User() {
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-      />
-    </div>
+    <Paper
+      sx={{
+        p: 2
+      }}
+    >
+      <div style={{ marginBottom: '10px' }}>
+        <Button variant="contained" color="success"> Thêm khóa học</Button>
+      </div>
+
+      <div style={{ height: 500, width: '100%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+        />
+      </div>
+    </Paper>
   )
 }
