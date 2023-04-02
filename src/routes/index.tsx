@@ -1,9 +1,6 @@
+import { User } from 'pages'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
-
-function Home() {
-  return <div>Content</div>
-}
 
 const AdminLayout = lazy(() => import('../layouts/admin'))
 
@@ -12,7 +9,7 @@ function AppRoutes() {
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<User />} />
         </Route>
       </Routes>
     </Suspense>
