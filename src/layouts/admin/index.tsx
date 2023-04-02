@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import * as React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -12,13 +11,12 @@ import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import { Outlet } from 'react-router'
 import { AppBar, Drawer } from './styled'
-import { mainListItems } from './ListItems'
+import Sidebar from './Sidebar'
 
 const mdTheme = createTheme()
 
@@ -81,7 +79,7 @@ function AdminLayout() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <Sidebar />
           </List>
         </Drawer>
         <Box
