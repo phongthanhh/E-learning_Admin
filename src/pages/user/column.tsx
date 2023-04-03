@@ -15,14 +15,8 @@ export const columns: GridColDef[] = [
     width: 150
   },
   {
-    field: 'maLoaiNguoiDung',
-    headerName: 'Member type',
-    sortable: false,
-    width: 160
-  },
-  {
     field: 'tenLoaiNguoiDung',
-    headerName: 'Member type name',
+    headerName: 'Member type',
     sortable: false,
     width: 160
   }
