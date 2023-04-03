@@ -1,8 +1,8 @@
-import { User } from 'pages'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 
 const AdminLayout = lazy(() => import('../layouts/admin'))
+const User = lazy(() => import('../pages/user'))
 
 function AppRoutes() {
   return (
