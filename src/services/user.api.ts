@@ -1,12 +1,12 @@
+import { GroupCode } from 'constant'
 import { IListResponse, IPaginationQueryParams, IUser } from 'models'
 import queryString from 'query-string'
-import { GroupCode } from 'constant'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
 interface IQueryParamsOfGetUserWithPag extends IPaginationQueryParams {
   MaNhom?: GroupCode
-  tuKhoa: string
+  tuKhoa?: string
 }
 
 const getUsersWithPagApi = (queryParams: IQueryParamsOfGetUserWithPag):

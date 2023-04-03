@@ -11,5 +11,5 @@ export interface IPaginationQueryParams {
 }
 
 export interface IListResponse<T> extends IPagination {
-  data: T[]
+  items: T[]
 }
