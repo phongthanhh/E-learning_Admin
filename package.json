@@ -27,6 +27,8 @@
     "@mui/material": "^5.11.15",
     "@mui/utils": "^5.11.13",
     "@mui/x-data-grid": "^6.0.4",
+    "@tanstack/react-query": "^4.28.0",
+    "@tanstack/react-query-devtools": "^4.28.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "antd": "^5.3.3",
