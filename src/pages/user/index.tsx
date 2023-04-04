@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import { Paper, Button } from '@mui/material'
-import { getUsersWithPagApi } from 'services'
-import { useQuery } from '@tanstack/react-query'
-import { DEFAULT_PAG } from 'constant'
-import { uid } from 'utils'
-import { useCallback, useMemo, useState } from 'react'
-import { Table } from 'components'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
+import { useQuery } from '@tanstack/react-query'
+import { InputField, Table } from 'components'
+import { DEFAULT_PAG } from 'constant'
+import { useCallback, useMemo, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { getUsersWithPagApi } from 'services'
+import { uid } from 'utils'
+import * as yup from 'yup'
 import { columns } from './column'
+
+const schema = yup.object().shape({
+  title: yup.string().required('Please fill title')
+})
 
 function User() {
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(DEFAULT_PAG)
@@ -27,8 +34,23 @@ function User() {
     setPaginationModel(pagination)
   }, [])
 
+  const formMethods = useForm({
+    defaultValues: { title: '' },
+    resolver: yupResolver(schema)
+  })
+  const { handleSubmit } = formMethods
+
+  const onSubmit = (formData: { title: string }) => {
+    console.log('Tai Vo 🚀 ~ formData:', formData)
+  }
+
   return (
     <Paper sx={{ p: 2 }}>
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <InputField name="title" inputFieldProps={{ label: 'Title' }} />
+        </form>
+      </FormProvider>
       <div style={{ marginBottom: '10px' }}>
         <Button variant="contained" color="success">Thêm khóa học</Button>
       </div>
