@@ -32,6 +32,7 @@ module.exports = {
     'import/no-cycle': 0,
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
     '@typescript-eslint/semi': ['error', 'never'],
     '@typescript-eslint/comma-dangle': ['error', 'never'],
     '@typescript-eslint/no-unused-vars': 'error',
