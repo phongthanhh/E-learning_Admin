@@ -1,10 +1,10 @@
 import { GROUP_CODE } from 'constant'
-import { IListResponse, IPaginationQueryParams, IUser } from 'models'
+import { IListResponse, IPagination, IUser } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
-interface IQueryParamsOfGetUserWithPag extends IPaginationQueryParams {
+interface IQueryParamsOfGetUserWithPag extends IPagination {
   MaNhom?: string
   tuKhoa?: string
 }

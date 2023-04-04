@@ -1,3 +1,4 @@
 import Toast from './Toast'
+import Table from './Table'
 
-export { Toast }
+export { Toast, Table }
