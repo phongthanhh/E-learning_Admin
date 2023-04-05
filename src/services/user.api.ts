@@ -1,5 +1,7 @@
 import { GROUP_CODE } from 'constant'
-import { IListResponse, IPagination, IUser } from 'models'
+import {
+  IListResponse, IMemberType, IPagination, IUser
+} from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
@@ -17,4 +19,9 @@ Promise<IListResponse<IUser>> => {
   return axiosClient.get(url)
 }
 
-export { getUsersWithPagApi }
+const getMemberTypesApi = (): Promise<IMemberType[]> => {
+  const url = Endpoint.GET_MEMBER_TYPES
+  return axiosClient.get(url)
+}
+
+export { getUsersWithPagApi, getMemberTypesApi }

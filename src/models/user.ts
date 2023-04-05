@@ -7,3 +7,8 @@ export interface IUser {
   maLoaiNguoiDung: string,
   tenLoaiNguoiDung: string
 }
+
+export interface IMemberType {
+  maLoaiNguoiDung: string
+  tenLoaiNguoiDung: string
+}

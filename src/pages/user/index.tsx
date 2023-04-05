@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useQuery } from '@tanstack/react-query'
-import { InputField, Table } from 'components'
+import { FormInput, Table } from 'components'
 import { DEFAULT_PAG } from 'constant'
 import { useCallback, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -11,6 +12,7 @@ import { getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
 import * as yup from 'yup'
 import { columns } from './column'
+import CreateUserModal from './CreateUserModal'
 
 const schema = yup.object().shape({
   title: yup.string().required('Please fill title')
@@ -18,6 +20,7 @@ const schema = yup.object().shape({
 
 function User() {
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(DEFAULT_PAG)
+  const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
 
   const usersQuery = useQuery({
     queryKey: ['users', paginationModel],
@@ -34,25 +37,14 @@ function User() {
     setPaginationModel(pagination)
   }, [])
 
-  const formMethods = useForm({
-    defaultValues: { title: '' },
-    resolver: yupResolver(schema)
-  })
-  const { handleSubmit } = formMethods
-
-  const onSubmit = (formData: { title: string }) => {
-    console.log('Tai Vo 🚀 ~ formData:', formData)
-  }
+  const onCloseCreateUserModal = useCallback(() => {
+    setIsOpenCreateUserModal(false)
+  }, [])
 
   return (
     <Paper sx={{ p: 2 }}>
-      <FormProvider {...formMethods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputField name="title" inputFieldProps={{ label: 'Title' }} />
-        </form>
-      </FormProvider>
       <div style={{ marginBottom: '10px' }}>
-        <Button variant="contained" color="success">Thêm khóa học</Button>
+        <Button onClick={() => setIsOpenCreateUserModal(true)} variant="contained" color="success">Create user</Button>
       </div>
       <div style={{ height: 500, width: '100%' }}>
         <Table
@@ -67,6 +59,12 @@ function User() {
           }}
         />
       </div>
+
+      {/* Create users */}
+      <CreateUserModal
+        open={isOpenCreateUserModal}
+        onCloseCreateUserModal={onCloseCreateUserModal}
+      />
     </Paper>
   )
 }
