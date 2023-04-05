@@ -4,10 +4,10 @@ import { useController, useFormContext } from 'react-hook-form'
 
 interface IProps {
   name: string
-  inputFieldProps?: TextFieldProps
+  textFieldProps?: TextFieldProps
 }
 
-function InputField({ name, inputFieldProps }: IProps) {
+function FormInput({ name, textFieldProps }: IProps) {
   const { control } = useFormContext()
   const {
     field: { onChange, value },
@@ -20,9 +20,10 @@ function InputField({ name, inputFieldProps }: IProps) {
       error={Boolean(error?.message)}
       helperText={error?.message}
       fullWidth
-      {...inputFieldProps}
+      variant="standard"
+      {...textFieldProps}
     />
   )
 }
 
-export default memo(InputField)
+export default memo(FormInput)
