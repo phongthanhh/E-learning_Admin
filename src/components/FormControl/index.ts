@@ -1,3 +1,4 @@
-import InputField from './InputField'
+import FormInput from './FormInput'
+import FormSelect from './FormSelect'
 
-export { InputField }
+export { FormInput, FormSelect }
