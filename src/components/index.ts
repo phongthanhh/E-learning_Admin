@@ -1,3 +1,5 @@
 import Toast from './Toast'
+import Table from './Table'
 
-export { Toast }
+export * from './FormControl'
+export { Toast, Table }
