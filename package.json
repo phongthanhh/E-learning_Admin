@@ -25,6 +25,7 @@
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.0.0",
     "@mui/icons-material": "^5.11.11",
+    "@mui/lab": "^5.0.0-alpha.125",
     "@mui/material": "^5.11.15",
     "@mui/utils": "^5.11.13",
     "@mui/x-data-grid": "^6.0.4",
