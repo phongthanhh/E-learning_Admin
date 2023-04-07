@@ -1,22 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Paper } from '@mui/material'
+import { Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useQuery } from '@tanstack/react-query'
-import { FormInput, Table } from 'components'
+import { Table } from 'components'
 import { DEFAULT_PAG } from 'constant'
 import { useCallback, useMemo, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
 import { getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
-import * as yup from 'yup'
-import { columns } from './column'
 import CreateUserModal from './CreateUserModal'
-
-const schema = yup.object().shape({
-  title: yup.string().required('Please fill title')
-})
+import { columns } from './column'
 
 function User() {
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(DEFAULT_PAG)
@@ -41,13 +32,15 @@ function User() {
     setIsOpenCreateUserModal(false)
   }, [])
 
+  const actions = useMemo(() => ([
+    { text: 'Create user', onClick: () => setIsOpenCreateUserModal(true) }
+  ]), [])
+
   return (
-    <Paper sx={{ p: 2 }}>
-      <div style={{ marginBottom: '10px' }}>
-        <Button onClick={() => setIsOpenCreateUserModal(true)} variant="contained" color="success">Create user</Button>
-      </div>
-      <div style={{ height: 500, width: '100%' }}>
+    <>
+      <Paper elevation={5}>
         <Table
+          actions={actions}
           dataGridProps={{
             rows: rows || [],
             columns,
@@ -58,14 +51,14 @@ function User() {
             pageSizeOptions: [5, 10, 15, 20]
           }}
         />
-      </div>
+      </Paper>
 
       {/* Create users */}
       <CreateUserModal
         open={isOpenCreateUserModal}
         onCloseCreateUserModal={onCloseCreateUserModal}
       />
-    </Paper>
+    </>
   )
 }
 
