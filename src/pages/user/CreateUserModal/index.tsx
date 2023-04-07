@@ -1,33 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { LoadingButton } from '@mui/lab'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Button, Slide, Grid
+  Button,
+  Dialog, DialogActions, DialogContent, DialogTitle,
+  Grid,
+  Slide
 } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
 import { GROUP_CODE } from 'constant'
 import { GROUPS } from 'data'
-import { IOption } from 'models'
+import { IUserToCreate } from 'models'
 import {
   ReactElement, memo, useMemo
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { getMemberTypesApi } from 'services'
+import { toast } from 'react-toastify'
+import { createUserApi, getMemberTypesApi } from 'services'
 import { createUserSchema } from './schema'
 
 interface IProps {
   open: boolean
   onCloseCreateUserModal: () => void
-}
-
-interface IUserToCreate {
-  taiKhoan: string,
-  matKhau: string,
-  hoTen: string,
-  soDT: string,
-  maLoaiNguoiDung: string,
-  maNhom: IOption | string,
-  email: string
 }
 
 const GROUP_OPTIONS = GROUPS.map((group) => ({ value: group, label: group }))
@@ -48,15 +43,28 @@ function Transition(props: TransitionProps & { children: ReactElement }) {
 
 function CreateUserModal(props: IProps) {
   const { open, onCloseCreateUserModal } = props
+
+  const queryClient = useQueryClient()
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data: IUserToCreate) => createUserApi(data)
+  })
+
   const formMethods = useForm({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(createUserSchema)
   })
+  const { handleSubmit, reset } = formMethods
 
-  const { handleSubmit } = formMethods
   const onSubmit = (formData: IUserToCreate) => {
-    // eslint-disable-next-line no-console
-    console.log('Tai Vo 🚀 ~ formData:', formData)
+    mutate(formData, {
+      onSuccess: () => {
+        toast.success('Create user successfully!')
+        queryClient.invalidateQueries({ queryKey: ['users'] })
+        onCloseCreateUserModal()
+        reset(DEFAULT_VALUES)
+      }
+    })
   }
 
   const memberTypesQuery = useQuery({
@@ -113,7 +121,7 @@ function CreateUserModal(props: IProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={onCloseCreateUserModal}>Cancel</Button>
-        <Button onClick={handleSubmit(onSubmit)}>Create</Button>
+        <LoadingButton loading={isLoading} onClick={handleSubmit(onSubmit)}>Create</LoadingButton>
       </DialogActions>
     </Dialog>
   )
