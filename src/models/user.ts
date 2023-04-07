@@ -8,6 +8,10 @@ export interface IUser {
   tenLoaiNguoiDung: string
 }
 
+export interface IUserToCreate extends Omit<IUser, 'tenLoaiNguoiDung'> {
+  matKhau: string
+}
+
 export interface IMemberType {
   maLoaiNguoiDung: string
   tenLoaiNguoiDung: string
