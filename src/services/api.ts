@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { BASE_URL, TOKEN_CYBER } from 'constant'
+import { BASE_URL, Storage, TOKEN_CYBER } from 'constant'
 import { toast } from 'react-toastify'
 
 const axiosClient = axios.create({
@@ -8,8 +8,7 @@ const axiosClient = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    TokenCybersoft: TOKEN_CYBER,
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYmluaGtyMTIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJHViIsIm5iZiI6MTY3OTcyNTAzMywiZXhwIjoxNjc5NzI4NjMzfQ.3vyD1vfCpeTag_TzwPyYsIl5WiFYlWBCas0hP_NAakw'
+    TokenCybersoft: TOKEN_CYBER
   },
   timeout: 0
 })
@@ -19,6 +18,11 @@ axiosClient.interceptors.request.use(
   (configure: InternalAxiosRequestConfig) => {
     // Do something before request is sent
     const newConfigure = { ...configure }
+
+    const accessTokenInLocal = localStorage.getItem(Storage.ACCESS_TOKEN)
+    if (accessTokenInLocal) {
+      newConfigure.headers.Authorization = `Bearer ${accessTokenInLocal}`
+    }
 
     return newConfigure
   },
