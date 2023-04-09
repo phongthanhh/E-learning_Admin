@@ -1,6 +1,9 @@
-import Toast from './Toast'
-import Table from './Table'
+import SearchBox from './SearchBox'
 import Loading from './Loading'
+import Table from './Table'
+import Toast from './Toast'
 
 export * from './FormControl'
-export { Toast, Table, Loading }
+export {
+  SearchBox, Loading, Table, Toast
+}

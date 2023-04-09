@@ -10,6 +10,11 @@ export interface IPagination {
   pageSize: number
 }
 
+export interface ISearchParams extends IPagination {
+  MaNhom?: string
+  tuKhoa?: string
+}
+
 export interface IListResponse<T> extends IPaginationResponse {
   items: T[]
 }

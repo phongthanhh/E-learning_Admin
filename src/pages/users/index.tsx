@@ -1,21 +1,37 @@
-import { Paper } from '@mui/material'
+import { Divider, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useQuery } from '@tanstack/react-query'
 import { Table } from 'components'
 import { DEFAULT_PAG } from 'constant'
 import { useCallback, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import { getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
+import QueryString from 'query-string'
+import { useQueryParams } from 'hooks'
+import { IPagination, ISearchParams } from 'models'
 import CreateUserModal from './CreateUserModal'
 import { columns } from './column'
+import Search from './Search'
 
 function User() {
-  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(DEFAULT_PAG)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const queryParams: Partial<IPagination & ISearchParams> = useQueryParams()
+  const { page, pageSize, tuKhoa } = queryParams
+
+  const paginationModel = {
+    page: Number(page) || DEFAULT_PAG.page,
+    pageSize: Number(pageSize) || DEFAULT_PAG.pageSize
+  }
+
+  const queryToSearch = { ...paginationModel, tuKhoa }
+
   const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
 
   const usersQuery = useQuery({
-    queryKey: ['users', paginationModel],
-    queryFn: () => getUsersWithPagApi({ ...paginationModel }),
+    queryKey: ['users', queryToSearch],
+    queryFn: () => getUsersWithPagApi(queryToSearch),
     keepPreviousData: true
   })
 
@@ -25,8 +41,11 @@ function User() {
   )
 
   const onPaginationModelChange = useCallback((pagination: GridPaginationModel) => {
-    setPaginationModel(pagination)
-  }, [])
+    navigate({
+      pathname,
+      search: `?${QueryString.stringify(pagination)}`
+    })
+  }, [pathname, navigate])
 
   const onCloseCreateUserModal = useCallback(() => {
     setIsOpenCreateUserModal(false)
@@ -39,6 +58,8 @@ function User() {
   return (
     <>
       <Paper elevation={5}>
+        <Search />
+        <Divider variant="middle" />
         <Table
           actions={actions}
           dataGridProps={{
