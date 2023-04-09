@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -13,7 +14,7 @@ import { GROUP_CODE } from 'constant'
 import { GROUPS } from 'data'
 import { IUserToCreate } from 'models'
 import {
-  ReactElement, memo, useMemo
+  ReactElement, forwardRef, memo, useMemo
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -37,9 +38,8 @@ const DEFAULT_VALUES: IUserToCreate = {
   email: ''
 }
 
-function Transition(props: TransitionProps & { children: ReactElement }) {
-  return <Slide direction="up" {...props} />
-}
+// eslint-disable-next-line react/display-name
+const Transition = forwardRef((props: TransitionProps & { children: ReactElement }, ref: React.Ref<unknown>) => (<Slide direction="up" ref={ref} {...props} />))
 
 function CreateUserModal(props: IProps) {
   const { open, onCloseCreateUserModal } = props
