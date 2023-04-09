@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button, ButtonProps } from '@mui/material'
+import { Button, ButtonProps } from '@mui/material'
 import { ReactNode, memo, useMemo } from 'react'
 import { StyledButtons, StyledChildren, StyledContainer } from './styled'
 

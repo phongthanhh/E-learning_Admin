@@ -1,19 +1,17 @@
 import { GROUP_CODE } from 'constant'
 import {
-  IListResponse, IMemberType, IPagination, IUser, IUserToCreate
+  IListResponse, IMemberType, ISearchParams, IUser, IUserToCreate
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
-interface IQueryParamsOfGetUserWithPag extends IPagination {
-  MaNhom?: string
-  tuKhoa?: string
-}
-
-const getUsersWithPagApi = (queryParams: IQueryParamsOfGetUserWithPag):
+const getUsersWithPagApi = (queryParams: ISearchParams):
 Promise<IListResponse<IUser>> => {
   const newQueryParams = { MaNhom: GROUP_CODE, ...queryParams }
+  if (newQueryParams.tuKhoa === '') {
+    delete newQueryParams.tuKhoa
+  }
   const q = queryString.stringify(newQueryParams)
   const url = `${Endpoint.GET_USER_WITH_PAG}?${q}`
   return axiosClient.get(url)

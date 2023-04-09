@@ -1,4 +1,4 @@
-import { Paper } from '@mui/material'
+import { Divider, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useQuery } from '@tanstack/react-query'
 import { Table } from 'components'
@@ -9,25 +9,29 @@ import { getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
 import QueryString from 'query-string'
 import { useQueryParams } from 'hooks'
-import { IPagination } from 'models'
+import { IPagination, ISearchParams } from 'models'
 import CreateUserModal from './CreateUserModal'
 import { columns } from './column'
+import Search from './Search'
 
 function User() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const queryParams: Partial<IPagination> = useQueryParams()
+  const queryParams: Partial<IPagination & ISearchParams> = useQueryParams()
+  const { page, pageSize, tuKhoa } = queryParams
 
   const paginationModel = {
-    page: Number(queryParams.page) || DEFAULT_PAG.page,
-    pageSize: Number(queryParams.pageSize) || DEFAULT_PAG.pageSize
+    page: Number(page) || DEFAULT_PAG.page,
+    pageSize: Number(pageSize) || DEFAULT_PAG.pageSize
   }
+
+  const queryToSearch = { ...paginationModel, tuKhoa }
 
   const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
 
   const usersQuery = useQuery({
-    queryKey: ['users', paginationModel],
-    queryFn: () => getUsersWithPagApi({ ...paginationModel }),
+    queryKey: ['users', queryToSearch],
+    queryFn: () => getUsersWithPagApi(queryToSearch),
     keepPreviousData: true
   })
 
@@ -54,6 +58,8 @@ function User() {
   return (
     <>
       <Paper elevation={5}>
+        <Search />
+        <Divider variant="middle" />
         <Table
           actions={actions}
           dataGridProps={{
