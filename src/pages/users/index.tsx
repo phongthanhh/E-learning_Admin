@@ -43,9 +43,9 @@ function User() {
   const onPaginationModelChange = useCallback((pagination: GridPaginationModel) => {
     navigate({
       pathname,
-      search: `?${QueryString.stringify(pagination)}`
+      search: QueryString.stringify({ ...queryParams, ...pagination })
     })
-  }, [pathname, navigate])
+  }, [pathname, queryParams, navigate])
 
   const onCloseCreateUserModal = useCallback(() => {
     setIsOpenCreateUserModal(false)
