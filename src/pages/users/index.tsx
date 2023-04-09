@@ -4,13 +4,25 @@ import { useQuery } from '@tanstack/react-query'
 import { Table } from 'components'
 import { DEFAULT_PAG } from 'constant'
 import { useCallback, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import { getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
+import QueryString from 'query-string'
+import { useQueryParams } from 'hooks'
+import { IPagination } from 'models'
 import CreateUserModal from './CreateUserModal'
 import { columns } from './column'
 
 function User() {
-  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(DEFAULT_PAG)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const queryParams: Partial<IPagination> = useQueryParams()
+
+  const paginationModel = {
+    page: Number(queryParams.page) || DEFAULT_PAG.page,
+    pageSize: Number(queryParams.pageSize) || DEFAULT_PAG.pageSize
+  }
+
   const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
 
   const usersQuery = useQuery({
@@ -25,8 +37,11 @@ function User() {
   )
 
   const onPaginationModelChange = useCallback((pagination: GridPaginationModel) => {
-    setPaginationModel(pagination)
-  }, [])
+    navigate({
+      pathname,
+      search: `?${QueryString.stringify(pagination)}`
+    })
+  }, [pathname, navigate])
 
   const onCloseCreateUserModal = useCallback(() => {
     setIsOpenCreateUserModal(false)
