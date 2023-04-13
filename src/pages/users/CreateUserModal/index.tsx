@@ -9,7 +9,7 @@ import {
 import { TransitionProps } from '@mui/material/transitions'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
-import { GROUP_CODE } from 'constant'
+import { GROUP_CODE, QUERY_KEY } from 'constant'
 import { IUserToCreate } from 'models'
 import {
   ReactElement, forwardRef, memo, useMemo
@@ -56,7 +56,7 @@ function CreateUserModal(props: IProps) {
     mutate(formData, {
       onSuccess: () => {
         toast.success('Create user successfully!')
-        queryClient.invalidateQueries({ queryKey: ['users'] })
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USERS] })
         onCloseCreateUserModal()
         reset(DEFAULT_VALUES)
       }
@@ -64,7 +64,7 @@ function CreateUserModal(props: IProps) {
   }
 
   const memberTypesQuery = useQuery({
-    queryKey: ['memberTypes'],
+    queryKey: [QUERY_KEY.MEMBER_TYPES],
     queryFn: () => getMemberTypesApi()
   })
 

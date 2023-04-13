@@ -10,7 +10,7 @@ import {
 import { TransitionProps } from '@mui/material/transitions'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
-import { GROUP_CODE } from 'constant'
+import { GROUP_CODE, QUERY_KEY } from 'constant'
 import { IUserToCreate, IUserToEdit } from 'models'
 import {
   ReactElement, forwardRef, memo, useMemo, useEffect
@@ -74,7 +74,7 @@ function EditModal(props: IProps) {
     mutate(newFormData, {
       onSuccess: () => {
         toast.success('Update user successfully!')
-        queryClient.invalidateQueries({ queryKey: ['users'] })
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USERS] })
         onCloseEditModal()
         reset(DEFAULT_VALUES)
       }
@@ -82,7 +82,7 @@ function EditModal(props: IProps) {
   }
 
   const memberTypesQuery = useQuery({
-    queryKey: ['memberTypes'],
+    queryKey: [QUERY_KEY.MEMBER_TYPES],
     queryFn: () => getMemberTypesApi()
   })
 
