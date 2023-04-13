@@ -81,7 +81,6 @@ function User() {
     mutationFn: (userNameQuery: IUserNameParams) => delUserApi(userNameQuery)
   })
   const queryClient = useQueryClient()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelUser = (userNameQuery: IUserNameParams) => {
     delUserMutation.mutate(userNameQuery, {
       onSuccess: () => {

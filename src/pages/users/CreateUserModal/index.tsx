@@ -21,7 +21,7 @@ import { createUserSchema } from './schema'
 
 interface IProps {
   open: boolean
-  onCloseCreateUserModal: () => void,
+  onCloseCreateUserModal: () => void
 }
 
 const DEFAULT_VALUES: IUserToCreate = {

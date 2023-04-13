@@ -4,7 +4,7 @@ import { useController, useFormContext } from 'react-hook-form'
 
 interface IProps {
   name: string
-  textFieldProps?: TextFieldProps,
+  textFieldProps?: TextFieldProps
 }
 
 function FormInput({ name, textFieldProps }: IProps) {
