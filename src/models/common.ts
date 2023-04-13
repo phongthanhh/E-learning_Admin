@@ -15,6 +15,10 @@ export interface ISearchParams extends IPagination {
   tuKhoa?: string
 }
 
+export interface IUserNameParams {
+  TaiKhoan: string
+}
+
 export interface IListResponse<T> extends IPaginationResponse {
   items: T[]
 }

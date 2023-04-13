@@ -1,17 +1,18 @@
 import { Paper, Divider } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Table } from 'components'
 import { DEFAULT_PAG, QUERY_KEY } from 'constant'
 import { useQueryParams } from 'hooks'
 import {
-  IPagination, ISearchParams, IUserToEdit
+  IPagination, ISearchParams, IUserNameParams, IUserToEdit
 } from 'models'
 import { useCallback, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { getUsersWithPagApi } from 'services'
+import { delUserApi, getUsersWithPagApi } from 'services'
 import { uid } from 'utils'
 import QueryString from 'query-string'
+import { toast } from 'react-toastify'
 import columns from './column'
 import CreateUserModal from './CreateUserModal'
 import Search from './Search'
@@ -71,9 +72,23 @@ function User() {
     { text: 'Create user', onClick: () => setIsOpenCreateUserModal(true) }
   ]), [])
 
-  const handleSetUserToEdit = (params:IUserToEdit) => {
+  const handleSetUserToEdit = (params: IUserToEdit) => {
     setUserToEdit(params)
     onOpenEditModal()
+  }
+
+  const delUserMutation = useMutation({
+    mutationFn: (userNameQuery: IUserNameParams) => delUserApi(userNameQuery)
+  })
+  const queryClient = useQueryClient()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleDelUser = (userNameQuery: IUserNameParams) => {
+    delUserMutation.mutate(userNameQuery, {
+      onSuccess: () => {
+        toast.success('Delete user successfully!')
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USERS] })
+      }
+    })
   }
 
   return (
@@ -85,7 +100,7 @@ function User() {
           actions={actions}
           dataGridProps={{
             rows: rows || [],
-            columns: columns({ handleSetUserToEdit }),
+            columns: columns({ handleSetUserToEdit, handleDelUser }),
             loading: usersQuery.isFetching,
             paginationModel,
             rowCount: usersQuery.data?.totalCount || 0,

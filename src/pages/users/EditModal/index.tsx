@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -17,13 +16,13 @@ import {
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { createUserApi, getMemberTypesApi, updateUserApi } from 'services'
+import { getMemberTypesApi, updateUserApi } from 'services'
 import { createUserSchema } from './schema'
 
 interface IProps {
   open: boolean
   onCloseEditModal: () => void,
-  userToEdit:IUserToEdit | Record<string, never>
+  userToEdit: IUserToEdit | Record<string, never>
 }
 
 const DEFAULT_VALUES: IUserToEdit = {
@@ -34,9 +33,7 @@ const DEFAULT_VALUES: IUserToEdit = {
   maLoaiNguoiDung: '',
   maNhom: GROUP_CODE,
   email: '',
-  xacNhanMatKhau: '',
-  id: '',
-  tenLoaiNguoiDung: ''
+  xacNhanMatKhau: ''
 }
 
 // eslint-disable-next-line react/display-name
@@ -57,7 +54,7 @@ function EditModal(props: IProps) {
   })
 
   const {
-    handleSubmit, reset, formState: { errors }
+    handleSubmit, reset
   } = formMethods
 
   useEffect(() => {
@@ -69,7 +66,7 @@ function EditModal(props: IProps) {
 
   const onSubmit = (formData: IUserToEdit) => {
     const {
-      xacNhanMatKhau, tenLoaiNguoiDung, id, ...newFormData
+      xacNhanMatKhau, ...newFormData
     } = formData
     mutate(newFormData, {
       onSuccess: () => {
@@ -106,7 +103,7 @@ function EditModal(props: IProps) {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <FormInput disabled name="taiKhoan" textFieldProps={{ label: 'Username' }} />
+                <FormInput name="taiKhoan" textFieldProps={{ label: 'Username', disabled: true }} />
               </Grid>
               <Grid item xs={6}>
                 <FormInput name="hoTen" textFieldProps={{ label: 'Full name' }} />

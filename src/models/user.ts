@@ -14,8 +14,6 @@ export interface IUserToCreate extends Omit<IUser, 'tenLoaiNguoiDung'> {
 
 export interface IUserToEdit extends IUserToCreate {
   xacNhanMatKhau: string,
-  tenLoaiNguoiDung:string,
-  id:string
 }
 
 export interface IMemberType {
