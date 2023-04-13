@@ -5,10 +5,9 @@ import { useController, useFormContext } from 'react-hook-form'
 interface IProps {
   name: string
   textFieldProps?: TextFieldProps,
-  disabled?:boolean
 }
 
-function FormInput({ name, textFieldProps, disabled }: IProps) {
+function FormInput({ name, textFieldProps }: IProps) {
   const { control } = useFormContext()
   const {
     field: { onChange, value },
@@ -21,7 +20,6 @@ function FormInput({ name, textFieldProps, disabled }: IProps) {
       error={Boolean(error?.message)}
       helperText={error?.message}
       fullWidth
-      disabled={disabled}
       variant="standard"
       {...textFieldProps}
     />
