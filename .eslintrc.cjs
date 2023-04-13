@@ -9,7 +9,8 @@ module.exports = {
     'airbnb-typescript',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    ''
+    'plugin:testing-library/dom',
+    'plugin:jest-dom/recommended'
   ],
   overrides: [
   ],
@@ -21,7 +22,9 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'testing-library',
+    'jest-dom'
   ],
   rules: {
     'linebreak-style': 0,
