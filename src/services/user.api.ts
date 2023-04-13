@@ -27,4 +27,11 @@ const createUserApi = (data: IUserToCreate) => {
   return axiosClient.post(url, data)
 }
 
-export { getUsersWithPagApi, getMemberTypesApi, createUserApi }
+const updateUserApi = (data:IUserToCreate) => {
+  const url = Endpoint.UPDATE_USER
+  return axiosClient.put(url, data)
+}
+
+export {
+  getUsersWithPagApi, getMemberTypesApi, createUserApi, updateUserApi
+}

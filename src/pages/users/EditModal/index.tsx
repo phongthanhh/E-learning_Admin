@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import {
@@ -10,54 +11,71 @@ import { TransitionProps } from '@mui/material/transitions'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
 import { GROUP_CODE } from 'constant'
-import { IUserToCreate } from 'models'
+import { IUserToCreate, IUserToEdit } from 'models'
 import {
-  ReactElement, forwardRef, memo, useMemo
+  ReactElement, forwardRef, memo, useMemo, useEffect
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { createUserApi, getMemberTypesApi } from 'services'
+import { createUserApi, getMemberTypesApi, updateUserApi } from 'services'
 import { createUserSchema } from './schema'
 
 interface IProps {
   open: boolean
-  onCloseCreateUserModal: () => void,
+  onCloseEditModal: () => void,
+  userToEdit:IUserToEdit | Record<string, never>
 }
 
-const DEFAULT_VALUES: IUserToCreate = {
+const DEFAULT_VALUES: IUserToEdit = {
   taiKhoan: '',
   matKhau: '',
   hoTen: '',
   soDT: '',
   maLoaiNguoiDung: '',
   maNhom: GROUP_CODE,
-  email: ''
+  email: '',
+  xacNhanMatKhau: '',
+  id: '',
+  tenLoaiNguoiDung: ''
 }
 
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props: TransitionProps & { children: ReactElement }, ref: React.Ref<unknown>) => (<Slide direction="up" ref={ref} {...props} />))
 
-function CreateUserModal(props: IProps) {
-  const { open, onCloseCreateUserModal } = props
+function EditModal(props: IProps) {
+  const { open, onCloseEditModal, userToEdit } = props
 
   const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data: IUserToCreate) => createUserApi(data)
+    mutationFn: (data: IUserToCreate) => updateUserApi(data)
   })
 
   const formMethods = useForm({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(createUserSchema)
   })
-  const { handleSubmit, reset } = formMethods
 
-  const onSubmit = (formData: IUserToCreate) => {
-    mutate(formData, {
+  const {
+    handleSubmit, reset, formState: { errors }
+  } = formMethods
+
+  useEffect(() => {
+    if (Object.keys(userToEdit).length) {
+      const newUserToEdit = { ...userToEdit, maNhom: GROUP_CODE }
+      reset(newUserToEdit)
+    }
+  }, [userToEdit, reset])
+
+  const onSubmit = (formData: IUserToEdit) => {
+    const {
+      xacNhanMatKhau, tenLoaiNguoiDung, id, ...newFormData
+    } = formData
+    mutate(newFormData, {
       onSuccess: () => {
-        toast.success('Create user successfully!')
+        toast.success('Update user successfully!')
         queryClient.invalidateQueries({ queryKey: ['users'] })
-        onCloseCreateUserModal()
+        onCloseEditModal()
         reset(DEFAULT_VALUES)
       }
     })
@@ -79,16 +97,16 @@ function CreateUserModal(props: IProps) {
   return (
     <Dialog
       open={open}
-      onClose={onCloseCreateUserModal}
+      onClose={onCloseEditModal}
       TransitionComponent={Transition}
     >
-      <DialogTitle>Create user</DialogTitle>
+      <DialogTitle>Edit User</DialogTitle>
       <DialogContent>
         <FormProvider {...formMethods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <FormInput name="taiKhoan" textFieldProps={{ label: 'Username' }} />
+                <FormInput disabled name="taiKhoan" textFieldProps={{ label: 'Username' }} />
               </Grid>
               <Grid item xs={6}>
                 <FormInput name="hoTen" textFieldProps={{ label: 'Full name' }} />
@@ -113,11 +131,11 @@ function CreateUserModal(props: IProps) {
         </FormProvider>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCloseCreateUserModal}>Cancel</Button>
-        <LoadingButton loading={isLoading} onClick={handleSubmit(onSubmit)}>Create</LoadingButton>
+        <Button variant="contained" color="error" onClick={onCloseEditModal}>Cancel</Button>
+        <LoadingButton variant="contained" color="success" loading={isLoading} onClick={handleSubmit(onSubmit)}>Update</LoadingButton>
       </DialogActions>
     </Dialog>
   )
 }
 
-export default memo(CreateUserModal)
+export default memo(EditModal)
