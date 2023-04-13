@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/semi': ['error', 'never'],
     '@typescript-eslint/comma-dangle': ['error', 'never'],
     '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/no-explicit-any': 'error'
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/type-annotation-spacing': ['error', { after: true }]
   }
 }

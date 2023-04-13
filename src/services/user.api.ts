@@ -1,6 +1,6 @@
 import { GROUP_CODE } from 'constant'
 import {
-  IListResponse, IMemberType, ISearchParams, IUser, IUserToCreate
+  IListResponse, IMemberType, ISearchParams, IUser, IUserNameParams, IUserToCreate
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
@@ -27,4 +27,17 @@ const createUserApi = (data: IUserToCreate) => {
   return axiosClient.post(url, data)
 }
 
-export { getUsersWithPagApi, getMemberTypesApi, createUserApi }
+const updateUserApi = (data: IUserToCreate) => {
+  const url = Endpoint.UPDATE_USER
+  return axiosClient.put(url, data)
+}
+
+const delUserApi = (queryParams: IUserNameParams) => {
+  const q = queryString.stringify(queryParams)
+  const url = `${Endpoint.DEL_USER}?${q}`
+  return axiosClient.delete(url)
+}
+
+export {
+  getUsersWithPagApi, getMemberTypesApi, createUserApi, updateUserApi, delUserApi
+}
