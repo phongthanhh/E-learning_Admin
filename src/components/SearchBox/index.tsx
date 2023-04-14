@@ -2,23 +2,23 @@ import { Button, ButtonProps } from '@mui/material'
 import { ReactNode, memo, useMemo } from 'react'
 import { StyledButtons, StyledChildren, StyledContainer } from './styled'
 
-interface IProps {
+interface Props {
   children: ReactNode
   onCancel: () => void
   onSearch: () => void
 }
 
-interface IButton extends ButtonProps {
+interface ButtonAction extends ButtonProps {
   text: string
 }
 
-function SearchBox(props: IProps) {
+function SearchBox(props: Props) {
   // Props
   const { children, onCancel, onSearch } = props
   // End props
 
   const renderActions = useMemo(() => {
-    const buttons: IButton[] = [
+    const buttons: ButtonAction[] = [
       { text: 'Reset', color: 'error', onClick: onCancel },
       { text: 'Search', color: 'primary', onClick: onSearch }
     ]

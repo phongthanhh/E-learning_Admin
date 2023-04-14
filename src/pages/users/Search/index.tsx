@@ -1,24 +1,24 @@
 import { Grid } from '@mui/material'
 import { FormInput, SearchBox } from 'components'
 import { useQueryParams } from 'hooks'
-import { IPagination, ISearchParams } from 'models'
+import { Pagination, SearchParams } from 'models'
 import { useCallback } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 import QueryString from 'query-string'
 
-interface IDefaultValue {
-  tuKhoa: Required<ISearchParams>['tuKhoa']
+interface DefaultValue {
+  tuKhoa: Required<SearchParams>['tuKhoa']
 }
 
-const DEFAULT_VALUE: IDefaultValue = {
+const DEFAULT_VALUE: DefaultValue = {
   tuKhoa: ''
 }
 
 function Search() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const queryParams: Partial<IPagination & ISearchParams> = useQueryParams()
+  const queryParams: Partial<Pagination & SearchParams> = useQueryParams()
 
   const { tuKhoa = DEFAULT_VALUE.tuKhoa } = queryParams
 
@@ -35,7 +35,7 @@ function Search() {
     })
   }, [pathname, queryParams, navigate, reset])
 
-  const onSearch = useCallback((formData: IDefaultValue) => {
+  const onSearch = useCallback((formData: DefaultValue) => {
     navigate({
       pathname,
       search: QueryString.stringify({ ...queryParams, ...formData })

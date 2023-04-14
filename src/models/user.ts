@@ -1,4 +1,4 @@
-export interface IUser {
+export interface User {
   taiKhoan: string,
   hoTen: string,
   soDT: string,
@@ -8,15 +8,15 @@ export interface IUser {
   tenLoaiNguoiDung: string
 }
 
-export interface IUserToCreate extends Omit<IUser, 'tenLoaiNguoiDung'> {
+export interface UserToCreate extends Omit<User, 'tenLoaiNguoiDung'> {
   matKhau: string
 }
 
-export interface IUserToEdit extends IUserToCreate {
+export interface UserToEdit extends UserToCreate {
   xacNhanMatKhau: string,
 }
 
-export interface IMemberType {
+export interface MemberType {
   maLoaiNguoiDung: string
   tenLoaiNguoiDung: string
 }

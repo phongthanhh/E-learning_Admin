@@ -5,7 +5,7 @@ import { Table } from 'components'
 import { DEFAULT_PAG, QUERY_KEY } from 'constant'
 import { useQueryParams } from 'hooks'
 import {
-  IPagination, ISearchParams, IUserNameParams, IUserToEdit
+  Pagination, SearchParams, UserNameParams, UserToEdit
 } from 'models'
 import { useCallback, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
@@ -19,7 +19,7 @@ import Search from './Search'
 import EditModal from './EditModal'
 
 function User() {
-  const [userToEdit, setUserToEdit] = useState<IUserToEdit | Record<string, never>>({})
+  const [userToEdit, setUserToEdit] = useState<UserToEdit | Record<string, never>>({})
 
   const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
 
@@ -27,7 +27,7 @@ function User() {
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const queryParams: Partial<IPagination & ISearchParams> = useQueryParams()
+  const queryParams: Partial<Pagination & SearchParams> = useQueryParams()
   const { page, pageSize, tuKhoa } = queryParams
 
   const paginationModel = {
@@ -72,16 +72,16 @@ function User() {
     { text: 'Create user', onClick: () => setIsOpenCreateUserModal(true) }
   ]), [])
 
-  const handleSetUserToEdit = (params: IUserToEdit) => {
+  const handleSetUserToEdit = (params: UserToEdit) => {
     setUserToEdit(params)
     onOpenEditModal()
   }
 
   const delUserMutation = useMutation({
-    mutationFn: (userNameQuery: IUserNameParams) => delUserApi(userNameQuery)
+    mutationFn: (userNameQuery: UserNameParams) => delUserApi(userNameQuery)
   })
   const queryClient = useQueryClient()
-  const handleDelUser = (userNameQuery: IUserNameParams) => {
+  const handleDelUser = (userNameQuery: UserNameParams) => {
     delUserMutation.mutate(userNameQuery, {
       onSuccess: () => {
         toast.success('Delete user successfully!')

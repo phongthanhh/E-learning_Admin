@@ -1,24 +1,24 @@
-export interface IPaginationResponse {
+export interface PaginationResponse {
   currentPage: number
   totalPages: number
   count: number
   totalCount: number
 }
 
-export interface IPagination {
+export interface Pagination {
   page: number
   pageSize: number
 }
 
-export interface ISearchParams extends IPagination {
+export interface SearchParams extends Pagination {
   MaNhom?: string
   tuKhoa?: string
 }
 
-export interface IUserNameParams {
+export interface UserNameParams {
   TaiKhoan: string
 }
 
-export interface IListResponse<T> extends IPaginationResponse {
+export interface ListResponse<T> extends PaginationResponse {
   items: T[]
 }

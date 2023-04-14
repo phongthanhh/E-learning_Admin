@@ -10,7 +10,7 @@ import { TransitionProps } from '@mui/material/transitions'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
 import { GROUP_CODE, QUERY_KEY } from 'constant'
-import { IUserToCreate } from 'models'
+import { UserToCreate } from 'models'
 import {
   ReactElement, forwardRef, memo, useMemo
 } from 'react'
@@ -19,12 +19,12 @@ import { toast } from 'react-toastify'
 import { createUserApi, getMemberTypesApi } from 'services'
 import { createUserSchema } from './schema'
 
-interface IProps {
+interface Props {
   open: boolean
   onCloseCreateUserModal: () => void
 }
 
-const DEFAULT_VALUES: IUserToCreate = {
+const DEFAULT_VALUES: UserToCreate = {
   taiKhoan: '',
   matKhau: '',
   hoTen: '',
@@ -37,13 +37,13 @@ const DEFAULT_VALUES: IUserToCreate = {
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props: TransitionProps & { children: ReactElement }, ref: React.Ref<unknown>) => (<Slide direction="up" ref={ref} {...props} />))
 
-function CreateUserModal(props: IProps) {
+function CreateUserModal(props: Props) {
   const { open, onCloseCreateUserModal } = props
 
   const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data: IUserToCreate) => createUserApi(data)
+    mutationFn: (data: UserToCreate) => createUserApi(data)
   })
 
   const formMethods = useForm({
@@ -52,7 +52,7 @@ function CreateUserModal(props: IProps) {
   })
   const { handleSubmit, reset } = formMethods
 
-  const onSubmit = (formData: IUserToCreate) => {
+  const onSubmit = (formData: UserToCreate) => {
     mutate(formData, {
       onSuccess: () => {
         toast.success('Create user successfully!')
