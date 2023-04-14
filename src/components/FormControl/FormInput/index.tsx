@@ -2,12 +2,12 @@ import { TextField, TextFieldProps } from '@mui/material'
 import { memo } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
-interface IProps {
+interface Props {
   name: string
   textFieldProps?: TextFieldProps
 }
 
-function FormInput({ name, textFieldProps }: IProps) {
+function FormInput({ name, textFieldProps }: Props) {
   const { control } = useFormContext()
   const {
     field: { onChange, value },

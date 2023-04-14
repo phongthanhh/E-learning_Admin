@@ -10,7 +10,7 @@ import { TransitionProps } from '@mui/material/transitions'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FormInput, FormSelect } from 'components'
 import { GROUP_CODE, QUERY_KEY } from 'constant'
-import { IUserToCreate, IUserToEdit } from 'models'
+import { UserToCreate, UserToEdit } from 'models'
 import {
   ReactElement, forwardRef, memo, useMemo, useEffect
 } from 'react'
@@ -19,13 +19,13 @@ import { toast } from 'react-toastify'
 import { getMemberTypesApi, updateUserApi } from 'services'
 import { createUserSchema } from './schema'
 
-interface IProps {
+interface Props {
   open: boolean
   onCloseEditModal: () => void,
-  userToEdit: IUserToEdit | Record<string, never>
+  userToEdit: UserToEdit | Record<string, never>
 }
 
-const DEFAULT_VALUES: IUserToEdit = {
+const DEFAULT_VALUES: UserToEdit = {
   taiKhoan: '',
   matKhau: '',
   hoTen: '',
@@ -39,13 +39,13 @@ const DEFAULT_VALUES: IUserToEdit = {
 // eslint-disable-next-line react/display-name
 const Transition = forwardRef((props: TransitionProps & { children: ReactElement }, ref: React.Ref<unknown>) => (<Slide direction="up" ref={ref} {...props} />))
 
-function EditModal(props: IProps) {
+function EditModal(props: Props) {
   const { open, onCloseEditModal, userToEdit } = props
 
   const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data: IUserToCreate) => updateUserApi(data)
+    mutationFn: (data: UserToCreate) => updateUserApi(data)
   })
 
   const formMethods = useForm({
@@ -64,7 +64,7 @@ function EditModal(props: IProps) {
     }
   }, [userToEdit, reset])
 
-  const onSubmit = (formData: IUserToEdit) => {
+  const onSubmit = (formData: UserToEdit) => {
     const {
       xacNhanMatKhau, ...newFormData
     } = formData

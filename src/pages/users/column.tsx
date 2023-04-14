@@ -1,7 +1,7 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import {
-  IUserNameParams,
-  IUserToEdit
+  UserNameParams,
+  UserToEdit
 } from 'models'
 import React, { ReactNode } from 'react'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -20,12 +20,12 @@ export const StyledButton = styled.div`
   }
 `
 
-interface IParams {
-  handleSetUserToEdit: (userEdit: IUserToEdit) => void,
-  handleDelUser: (userNameQuery: IUserNameParams) => void
+interface Params {
+  handleSetUserToEdit: (userEdit: UserToEdit) => void,
+  handleDelUser: (userNameQuery: UserNameParams) => void
 }
 
-export default function columns({ handleSetUserToEdit, handleDelUser }: IParams): GridColDef[] {
+export default function columns({ handleSetUserToEdit, handleDelUser }: Params): GridColDef[] {
   return (
     [
       { field: 'taiKhoan', headerName: 'Username', width: 200 },

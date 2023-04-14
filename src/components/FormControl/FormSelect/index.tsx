@@ -1,15 +1,15 @@
 import { MenuItem, TextField, TextFieldProps } from '@mui/material'
-import { IOption } from 'models'
+import { Option } from 'models'
 import { memo } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
-interface IProps {
+interface Props {
   name: string
-  options: IOption[]
+  options: Option[]
   textFieldProps?: TextFieldProps
 }
 
-function FormSelect({ name, options, textFieldProps }: IProps) {
+function FormSelect({ name, options, textFieldProps }: Props) {
   const { control } = useFormContext()
   const {
     field: { onChange, value },

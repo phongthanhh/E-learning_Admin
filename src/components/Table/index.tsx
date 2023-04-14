@@ -3,16 +3,16 @@ import { DataGrid, DataGridProps } from '@mui/x-data-grid'
 import { memo, useMemo } from 'react'
 import { StyledActionsWrapper, StyledContainer } from './styled'
 
-interface IAction extends ButtonProps {
+interface ButtonAction extends ButtonProps {
   text: string
 }
 
-interface IProps {
-  actions?: IAction[]
+interface Props {
+  actions?: ButtonAction[]
   dataGridProps: DataGridProps
 }
 
-function Table(props: IProps) {
+function Table(props: Props) {
   // Props
   const { actions = [], dataGridProps } = props
   // End props
