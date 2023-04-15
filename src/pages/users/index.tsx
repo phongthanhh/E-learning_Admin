@@ -112,7 +112,7 @@ function User() {
       {/* Create users */}
       <CreateUserModal
         open={isOpenCreateUserModal}
-        onCloseCreateUserModal={onCloseCreateUserModal}
+        onClose={onCloseCreateUserModal}
       />
       {/* Edit user */}
       <EditModal
