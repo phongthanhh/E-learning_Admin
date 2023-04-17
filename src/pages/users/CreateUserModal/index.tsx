@@ -75,7 +75,7 @@ function CreateUserModal(props: Props) {
   return (
     <DialogComponent
       dialogProps={{ open, onClose }}
-      title="Create use"
+      title="Create user"
       actions={actions}
     >
       <FormProvider {...formMethods}>
