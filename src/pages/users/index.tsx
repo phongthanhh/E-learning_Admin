@@ -118,7 +118,7 @@ function User() {
       <EditModal
         userToEdit={userToEdit}
         open={isOpenEditModal}
-        onCloseEditModal={onCloseEditModal}
+        onClose={onCloseEditModal}
       />
     </>
   )
