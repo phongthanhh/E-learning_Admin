@@ -1,3 +1,4 @@
 import Users from './users'
+import Course from './courses'
 
-export { Users }
+export { Users, Course }

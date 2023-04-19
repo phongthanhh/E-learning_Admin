@@ -1,4 +1,5 @@
 import { Loading } from 'components'
+import { Course } from 'pages'
 import SyncUser from 'pages/sync-user'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
@@ -12,6 +13,9 @@ function AppRoutes() {
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<User />} />
+        </Route>
+        <Route path="/admin/course" element={<AdminLayout />}>
+          <Route index element={<Course />} />
         </Route>
         <Route path="/sync-user" element={<SyncUser />} />
       </Routes>

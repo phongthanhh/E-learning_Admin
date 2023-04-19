@@ -13,6 +13,7 @@ export interface Pagination {
 export interface SearchParams extends Pagination {
   MaNhom?: string
   tuKhoa?: string
+  tenKhoaHoc?: string
 }
 
 export interface UserNameParams {

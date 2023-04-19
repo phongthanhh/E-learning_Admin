@@ -3,5 +3,6 @@ export enum Endpoint {
   GET_MEMBER_TYPES = '/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung',
   CREATE_USER = '/QuanLyNguoiDung/ThemNguoiDung',
   UPDATE_USER = '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
-  DEL_USER = '/QuanLyNguoiDung/XoaNguoiDung'
+  DEL_USER = '/QuanLyNguoiDung/XoaNguoiDung',
+  GET_COURSE_WITH_PAG = '/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang'
 }
