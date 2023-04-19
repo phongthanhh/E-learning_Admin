@@ -16,6 +16,7 @@ import { toast } from 'react-toastify'
 import { delUserApi, getCoursesWithPagApi } from 'services'
 import { uid } from 'utils'
 import columns from './column'
+import Search from './Search'
 
 export default function Course() {
   const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
@@ -34,7 +35,6 @@ export default function Course() {
     page: Number(page) || DEFAULT_PAG.page,
     pageSize: Number(pageSize) || DEFAULT_PAG.pageSize
   }
-  console.log(paginationModel)
 
   const queryToSearch = { ...paginationModel, tenKhoaHoc }
 
@@ -79,7 +79,7 @@ export default function Course() {
 
   return (
     <Paper elevation={5}>
-      {/* <Search /> */}
+      <Search />
       <Divider variant="middle" />
       <Table
         actions={actions}
