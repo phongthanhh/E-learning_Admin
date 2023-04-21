@@ -9,7 +9,7 @@ import { GROUP_CODE, QUERY_KEY, Storage } from 'constant'
 import dayjs from 'dayjs'
 import { CourseToCreate } from 'models'
 import {
-  memo, useCallback, useEffect, useMemo, useState
+  memo, useCallback, useMemo, useState
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -24,6 +24,22 @@ import { createCourseSchema } from './schema'
 interface Props {
   open: boolean
   onClose: () => void
+}
+
+interface UserLogin {
+  accessToken: string
+  email: string
+  hoTen: string
+  maLoaiNguoiDung: string
+  maNhom: string
+  soDT: string
+  taiKhoan: string
+}
+
+let userLogin: UserLogin
+
+if (localStorage.getItem(Storage.USER_LOGIN)) {
+  userLogin = JSON.parse(localStorage.getItem(Storage.USER_LOGIN) || '{}')
 }
 
 const DEFAULT_VALUES: CourseToCreate = {
@@ -41,15 +57,6 @@ const DEFAULT_VALUES: CourseToCreate = {
 }
 
 function CreateCourseModal(props: Props) {
-  const [defaultValue, setDefaultValue] = useState(DEFAULT_VALUES)
-
-  useEffect(() => {
-    if (localStorage.getItem(Storage.USER_LOGIN)) {
-      const userLogin = JSON.parse(localStorage.getItem(Storage.USER_LOGIN) || '{}')
-      setDefaultValue({ ...defaultValue, taiKhoanNguoiTao: userLogin.taiKhoan })
-    }
-  }, [localStorage.getItem(Storage.USER_LOGIN)])
-
   const { open, onClose } = props
 
   const queryClient = useQueryClient()
@@ -61,24 +68,22 @@ function CreateCourseModal(props: Props) {
   })
 
   const formMethods = useForm({
-    defaultValues: defaultValue,
+    defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(createCourseSchema)
   })
   const { handleSubmit, reset } = formMethods
 
-  useEffect(() => reset(defaultValue), [defaultValue, reset])
-
   const onSubmit = useCallback((formData: CourseToCreate) => {
-    const newFormData = { ...formData, hinhAnh: img }
+    const newFormData = { ...formData, hinhAnh: img, taiKhoanNguoiTao: userLogin.taiKhoan }
     mutate(newFormData, {
       onSuccess: () => {
         toast.success('Create course successfully!')
         queryClient.invalidateQueries({ queryKey: [QUERY_KEY.COURSES] })
         onClose()
-        reset(defaultValue)
+        reset(DEFAULT_VALUES)
       }
     })
-  }, [mutate, onClose, queryClient, reset, defaultValue, img])
+  }, [mutate, onClose, queryClient, reset, img])
 
   const courseCateQuery = useQuery({
     queryKey: [QUERY_KEY.COURSE_CATE],
