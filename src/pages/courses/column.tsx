@@ -1,6 +1,4 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import {
-} from 'models'
 import React, { ReactNode } from 'react'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -8,6 +6,7 @@ import styled from 'styled-components'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { COLORS } from 'themes'
+import { CourseQuery } from 'models'
 
 export const StyledButton = styled.div`
   .edit{
@@ -18,7 +17,11 @@ export const StyledButton = styled.div`
   }
 `
 
-export default function columns(): GridColDef[] {
+interface Params {
+  handleGetCourseToEdit: (courseParams: CourseQuery) => void
+}
+
+export default function columns({ handleGetCourseToEdit }: Params): GridColDef[] {
   return (
     [
       { field: 'maKhoaHoc', headerName: 'Course type', width: 200 },
@@ -62,7 +65,9 @@ export default function columns(): GridColDef[] {
               <IconButton>
                 <EditOutlinedIcon
                   className="edit"
-
+                  onClick={() => {
+                    handleGetCourseToEdit({ maKhoaHoc: params.row.maKhoaHoc })
+                  }}
                 />
               </IconButton>
             </Tooltip>

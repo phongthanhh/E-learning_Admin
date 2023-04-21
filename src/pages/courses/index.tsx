@@ -6,6 +6,9 @@ import { Table } from 'components'
 import { DEFAULT_PAG, QUERY_KEY } from 'constant'
 import { useQueryParams } from 'hooks'
 import {
+  ICourse,
+  CourseQuery,
+  CourseToCreate,
   Pagination, SearchParams, UserNameParams, UserToEdit
 } from 'models'
 import queryString from 'query-string'
@@ -13,21 +16,24 @@ import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
-import { delUserApi, getCoursesWithPagApi } from 'services'
+import { delUserApi, getCourseDetailApi, getCoursesWithPagApi } from 'services'
 import { uid } from 'utils'
 import columns from './column'
 import CreateCourseModal from './CreateCourseModal'
+import EditCourseModal from './EditCourseModal'
 import Search from './Search'
 
 export default function Course() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
   const [isOpenCreateCourseModal, setIsOpenCreateCourseModal] = useState(false)
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false)
 
-  const [userToEdit, setUserToEdit] = useState<UserToEdit | Record<string, never>>({})
+  const [courseToEdit, setCourseToEdit] = useState<ICourse | Record<string, never>>({})
 
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
   const queryParams: Partial<Pagination & SearchParams> = useQueryParams()
 
   const { page, pageSize, tenKhoaHoc } = queryParams
@@ -61,18 +67,40 @@ export default function Course() {
     setIsOpenCreateCourseModal(false)
   }, [])
 
+  const onOpenEditCourseModal = useCallback(() => {
+    setIsOpenEditModal(true)
+  }, [])
+
+  const onCloseEditCourseModal = useCallback(
+    () => setIsOpenEditModal(false),
+    []
+  )
+
+  const getCourseDetailMutation = useMutation({
+    mutationFn: (courseQueryParams: CourseQuery) => getCourseDetailApi(courseQueryParams)
+  })
+
+  const handleGetCourseToEdit = (params: CourseQuery) => {
+    getCourseDetailMutation.mutate(params, {
+      onSuccess: (data: ICourse) => {
+        setCourseToEdit(data)
+      }
+    })
+    onOpenEditCourseModal()
+  }
+
   const actions = useMemo(() => ([
     { text: 'Create course', onClick: () => setIsOpenCreateCourseModal(true) }
   ]), [])
 
-  const delUserMutation = useMutation({
+  const delCourseMutation = useMutation({
     mutationFn: (userNameQuery: UserNameParams) => delUserApi(userNameQuery)
   })
-  const queryClient = useQueryClient()
-  const handleDelUser = (userNameQuery: UserNameParams) => {
-    delUserMutation.mutate(userNameQuery, {
+
+  const handleDelCourse = (userNameQuery: UserNameParams) => {
+    delCourseMutation.mutate(userNameQuery, {
       onSuccess: () => {
-        toast.success('Delete user successfully!')
+        toast.success('Delete course successfully!')
         queryClient.invalidateQueries({ queryKey: ['courses'] })
       }
     })
@@ -87,7 +115,7 @@ export default function Course() {
           actions={actions}
           dataGridProps={{
             rows: rows || [],
-            columns: columns(),
+            columns: columns({ handleGetCourseToEdit }),
             loading: coursesQuery.isFetching,
             paginationModel,
             rowCount: coursesQuery.data?.totalCount || 0,
@@ -100,6 +128,11 @@ export default function Course() {
       <CreateCourseModal
         open={isOpenCreateCourseModal}
         onClose={onCloseCreateCourseModal}
+      />
+      <EditCourseModal
+        courseToEdit={courseToEdit}
+        open={isOpenEditModal}
+        onClose={onCloseEditCourseModal}
       />
     </>
 

@@ -1,4 +1,4 @@
-export interface Course {
+export interface ICourse {
   maKhoaHoc: string,
   biDanh: string,
   tenKhoaHoc: string,
@@ -31,10 +31,14 @@ export interface CourseToCreate {
   maNhom: null | string,
   ngayTao: string,
   maDanhMucKhoaHoc: string,
-  taiKhoanNguoiTao: string
+  taiKhoanNguoiTao: string,
 }
 
 export interface CourseCategory {
   maDanhMuc: string
   tenDanhMuc: string
+}
+
+export interface CourseQuery {
+  maKhoaHoc: string
 }

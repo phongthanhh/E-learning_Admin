@@ -1,13 +1,13 @@
 import { GROUP_CODE } from 'constant'
 import {
-  Course, CourseCategory, CourseToCreate, ListResponse, SearchParams
+  ICourse, CourseCategory, CourseQuery, CourseToCreate, ListResponse, SearchParams
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
 const getCoursesWithPagApi = (queryParams: SearchParams):
-Promise<ListResponse<Course>> => {
+Promise<ListResponse<ICourse>> => {
   const newQueryParams = { MaNhom: GROUP_CODE, ...queryParams }
   if (newQueryParams.tenKhoaHoc === '') {
     delete newQueryParams.tenKhoaHoc
@@ -27,6 +27,17 @@ const getCourseCategoryApi = (): Promise<CourseCategory[]> => {
   return axiosClient.get(url)
 }
 
+const updateCourseApi = (data: CourseToCreate) => {
+  const url = Endpoint.UPDATE_COURSE
+  return axiosClient.put(url, data)
+}
+
+const getCourseDetailApi = (queryParams: CourseQuery): Promise<ICourse> => {
+  const q = queryString.stringify(queryParams)
+  const url = `${Endpoint.GET_COURSE_DETAIL}?${q}`
+  return axiosClient.get(url)
+}
+
 export {
-  getCoursesWithPagApi, createCourseApi, getCourseCategoryApi
+  getCoursesWithPagApi, createCourseApi, getCourseCategoryApi, updateCourseApi, getCourseDetailApi
 }

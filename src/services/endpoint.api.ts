@@ -6,5 +6,7 @@ export enum Endpoint {
   DEL_USER = '/QuanLyNguoiDung/XoaNguoiDung',
   GET_COURSE_WITH_PAG = '/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang',
   CREATE_COURSE = '/QuanLyKhoaHoc/ThemKhoaHoc',
-  GET_COURSE_CATEGORY = '/QuanLyKhoaHoc/LayDanhMucKhoaHoc'
+  GET_COURSE_CATEGORY = '/QuanLyKhoaHoc/LayDanhMucKhoaHoc',
+  GET_COURSE_DETAIL = '/QuanLyKhoaHoc/LayThongTinKhoaHoc',
+  UPDATE_COURSE = '/QuanLyKhoaHoc/CapNhatKhoaHoc'
 }
