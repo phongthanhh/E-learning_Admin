@@ -2,5 +2,6 @@
 import reactLogo from './icons/react.svg'
 
 // Images
+import NO_IMAGE from './img/no-image.png'
 
-export { reactLogo }
+export { reactLogo, NO_IMAGE }
