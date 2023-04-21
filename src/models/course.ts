@@ -19,3 +19,22 @@ export interface Course {
     tenDanhMucKhoaHoc: string
   }
 }
+
+export interface CourseToCreate {
+  maKhoaHoc: string,
+  biDanh: string,
+  tenKhoaHoc: string,
+  moTa: string,
+  luotXem: number,
+  danhGia: number,
+  hinhAnh: string,
+  maNhom: null | string,
+  ngayTao: string,
+  maDanhMucKhoaHoc: string,
+  taiKhoanNguoiTao: string
+}
+
+export interface CourseCategory {
+  maDanhMuc: string
+  tenDanhMuc: string
+}

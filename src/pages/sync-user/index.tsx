@@ -22,6 +22,7 @@ function SyncUser() {
     if (Object.keys(queryParams).length) {
       const { accessToken = '' } = queryParams
       localStorage.setItem(Storage.ACCESS_TOKEN, accessToken)
+      localStorage.setItem(Storage.USER_LOGIN, JSON.stringify(queryParams))
       navigate('/admin')
     }
   }, [queryParams, navigate])

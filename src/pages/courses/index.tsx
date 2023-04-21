@@ -3,7 +3,7 @@ import { Divider, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Table } from 'components'
-import { DEFAULT_PAG } from 'constant'
+import { DEFAULT_PAG, QUERY_KEY } from 'constant'
 import { useQueryParams } from 'hooks'
 import {
   Pagination, SearchParams, UserNameParams, UserToEdit
@@ -16,10 +16,11 @@ import { toast } from 'react-toastify'
 import { delUserApi, getCoursesWithPagApi } from 'services'
 import { uid } from 'utils'
 import columns from './column'
+import CreateCourseModal from './CreateCourseModal'
 import Search from './Search'
 
 export default function Course() {
-  const [isOpenCreateUserModal, setIsOpenCreateUserModal] = useState(false)
+  const [isOpenCreateCourseModal, setIsOpenCreateCourseModal] = useState(false)
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false)
 
@@ -39,7 +40,7 @@ export default function Course() {
   const queryToSearch = { ...paginationModel, tenKhoaHoc }
 
   const coursesQuery = useQuery({
-    queryKey: ['courses', queryToSearch],
+    queryKey: [QUERY_KEY.COURSES, queryToSearch],
     queryFn: () => getCoursesWithPagApi(queryToSearch),
     keepPreviousData: true
   })
@@ -56,12 +57,12 @@ export default function Course() {
     })
   }, [pathname, queryParams, navigate])
 
-  const onCloseCreateUserModal = useCallback(() => {
-    setIsOpenCreateUserModal(false)
+  const onCloseCreateCourseModal = useCallback(() => {
+    setIsOpenCreateCourseModal(false)
   }, [])
 
   const actions = useMemo(() => ([
-    { text: 'Create course', onClick: () => setIsOpenCreateUserModal(true) }
+    { text: 'Create course', onClick: () => setIsOpenCreateCourseModal(true) }
   ]), [])
 
   const delUserMutation = useMutation({
@@ -78,21 +79,29 @@ export default function Course() {
   }
 
   return (
-    <Paper elevation={5}>
-      <Search />
-      <Divider variant="middle" />
-      <Table
-        actions={actions}
-        dataGridProps={{
-          rows: rows || [],
-          columns: columns(),
-          loading: coursesQuery.isFetching,
-          paginationModel,
-          rowCount: coursesQuery.data?.totalCount || 0,
-          onPaginationModelChange,
-          pageSizeOptions: [5, 10, 15, 20]
-        }}
+    <>
+      <Paper elevation={5}>
+        <Search />
+        <Divider variant="middle" />
+        <Table
+          actions={actions}
+          dataGridProps={{
+            rows: rows || [],
+            columns: columns(),
+            loading: coursesQuery.isFetching,
+            paginationModel,
+            rowCount: coursesQuery.data?.totalCount || 0,
+            onPaginationModelChange,
+            pageSizeOptions: [5, 10, 15, 20]
+          }}
+        />
+      </Paper>
+
+      <CreateCourseModal
+        open={isOpenCreateCourseModal}
+        onClose={onCloseCreateCourseModal}
       />
-    </Paper>
+    </>
+
   )
 }

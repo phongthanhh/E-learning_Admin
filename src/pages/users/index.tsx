@@ -34,7 +34,6 @@ function User() {
     page: Number(page) || DEFAULT_PAG.page,
     pageSize: Number(pageSize) || DEFAULT_PAG.pageSize
   }
-  console.log('paginationModel', paginationModel)
 
   const queryToSearch = { ...paginationModel, tuKhoa }
 
