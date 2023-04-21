@@ -38,6 +38,13 @@ const getCourseDetailApi = (queryParams: CourseQuery): Promise<ICourse> => {
   return axiosClient.get(url)
 }
 
+const delCourseApi = (queryParams: CourseQuery) => {
+  const q = queryString.stringify(queryParams)
+  const url = `${Endpoint.DEL_COURSE}?${q}`
+  return axiosClient.delete(url)
+}
+
 export {
-  getCoursesWithPagApi, createCourseApi, getCourseCategoryApi, updateCourseApi, getCourseDetailApi
+  getCoursesWithPagApi, createCourseApi, getCourseCategoryApi, updateCourseApi,
+  getCourseDetailApi, delCourseApi
 }

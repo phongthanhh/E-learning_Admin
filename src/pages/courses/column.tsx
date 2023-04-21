@@ -18,10 +18,11 @@ export const StyledButton = styled.div`
 `
 
 interface Params {
-  handleGetCourseToEdit: (courseParams: CourseQuery) => void
+  handleGetCourseToEdit: (courseParams: CourseQuery) => void,
+  handleDelCourse: (courseParams: CourseQuery) => void
 }
 
-export default function columns({ handleGetCourseToEdit }: Params): GridColDef[] {
+export default function columns({ handleGetCourseToEdit, handleDelCourse }: Params): GridColDef[] {
   return (
     [
       { field: 'maKhoaHoc', headerName: 'Course type', width: 200 },
@@ -76,6 +77,9 @@ export default function columns({ handleGetCourseToEdit }: Params): GridColDef[]
               <IconButton>
                 <DeleteOutlineOutlinedIcon
                   className="del"
+                  onClick={() => {
+                    handleDelCourse({ maKhoaHoc: params.row.maKhoaHoc })
+                  }}
                 />
               </IconButton>
             </Tooltip>

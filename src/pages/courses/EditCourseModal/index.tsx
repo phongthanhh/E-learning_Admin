@@ -83,7 +83,6 @@ function EditCourseModal({ open, onClose, courseToEdit }: Props) {
 
   const onSubmit = useCallback((formData: CourseToCreate) => {
     const newFormData = { ...formData, hinhAnh: img, taiKhoanNguoiTao: userLogin.taiKhoan }
-    console.log(newFormData)
     mutate(newFormData, {
       onSuccess: () => {
         toast.success('Update course successfully!')

@@ -8,5 +8,6 @@ export enum Endpoint {
   CREATE_COURSE = '/QuanLyKhoaHoc/ThemKhoaHoc',
   GET_COURSE_CATEGORY = '/QuanLyKhoaHoc/LayDanhMucKhoaHoc',
   GET_COURSE_DETAIL = '/QuanLyKhoaHoc/LayThongTinKhoaHoc',
-  UPDATE_COURSE = '/QuanLyKhoaHoc/CapNhatKhoaHoc'
+  UPDATE_COURSE = '/QuanLyKhoaHoc/CapNhatKhoaHoc',
+  DEL_COURSE = '/QuanLyKhoaHoc/XoaKhoaHoc'
 }

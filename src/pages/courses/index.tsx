@@ -16,7 +16,9 @@ import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
-import { delUserApi, getCourseDetailApi, getCoursesWithPagApi } from 'services'
+import {
+  delCourseApi, delUserApi, getCourseDetailApi, getCoursesWithPagApi
+} from 'services'
 import { uid } from 'utils'
 import columns from './column'
 import CreateCourseModal from './CreateCourseModal'
@@ -94,14 +96,14 @@ export default function Course() {
   ]), [])
 
   const delCourseMutation = useMutation({
-    mutationFn: (userNameQuery: UserNameParams) => delUserApi(userNameQuery)
+    mutationFn: (courseQuery: CourseQuery) => delCourseApi(courseQuery)
   })
 
-  const handleDelCourse = (userNameQuery: UserNameParams) => {
-    delCourseMutation.mutate(userNameQuery, {
+  const handleDelCourse = (courseQuery: CourseQuery) => {
+    delCourseMutation.mutate(courseQuery, {
       onSuccess: () => {
         toast.success('Delete course successfully!')
-        queryClient.invalidateQueries({ queryKey: ['courses'] })
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.COURSES] })
       }
     })
   }
@@ -115,7 +117,7 @@ export default function Course() {
           actions={actions}
           dataGridProps={{
             rows: rows || [],
-            columns: columns({ handleGetCourseToEdit }),
+            columns: columns({ handleGetCourseToEdit, handleDelCourse }),
             loading: coursesQuery.isFetching,
             paginationModel,
             rowCount: coursesQuery.data?.totalCount || 0,
