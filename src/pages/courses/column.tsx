@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { COLORS } from 'themes'
 import { CourseQuery } from 'models'
+import Swal from 'sweetalert2'
 
 export const StyledButton = styled.div`
   .edit{
@@ -78,7 +79,24 @@ export default function columns({ handleGetCourseToEdit, handleDelCourse }: Para
                 <DeleteOutlineOutlinedIcon
                   className="del"
                   onClick={() => {
-                    handleDelCourse({ maKhoaHoc: params.row.maKhoaHoc })
+                    Swal.fire({
+                      title: 'Do you want to delete?',
+                      text: "You won't be able to revert this!",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        handleDelCourse({ maKhoaHoc: params.row.maKhoaHoc })
+                        Swal.fire(
+                          'Deleted!',
+                          'Your file has been deleted.',
+                          'success'
+                        )
+                      }
+                    })
                   }}
                 />
               </IconButton>
