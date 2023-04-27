@@ -1,6 +1,7 @@
 import { GROUP_CODE } from 'constant'
 import {
-  ListResponse, MemberType, SearchParams, User, UserNameParams, UserToCreate
+  ListResponse, MemberType,
+  SearchParams, User, UserNameParams, UserToCreate, UserRegister, CourseQuery
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
@@ -38,6 +39,23 @@ const delUserApi = (queryParams: UserNameParams) => {
   return axiosClient.delete(url)
 }
 
+const getUsersUnregisterApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.UNREGISTER_USERS
+  return axiosClient.post(url, data)
+}
+
+const getUsersRegisterApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.REGISTER_USERS
+  return axiosClient.post(url, data)
+}
+
+const getWaitingUsersApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.WAITING_USERS
+  return axiosClient.post(url, data)
+}
+
 export {
-  getUsersWithPagApi, getMemberTypesApi, createUserApi, updateUserApi, delUserApi
+  getUsersWithPagApi, getMemberTypesApi,
+  createUserApi, updateUserApi, delUserApi, getUsersUnregisterApi, getUsersRegisterApi,
+  getWaitingUsersApi
 }

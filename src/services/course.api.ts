@@ -1,6 +1,6 @@
 import { GROUP_CODE } from 'constant'
 import {
-  ICourse, CourseCategory, CourseQuery, CourseToCreate, ListResponse, SearchParams
+  ICourse, CourseCategory, CourseQuery, CourseToCreate, ListResponse, SearchParams, RegisterCourse
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
@@ -44,7 +44,18 @@ const delCourseApi = (queryParams: CourseQuery) => {
   return axiosClient.delete(url)
 }
 
+const registerCourseApi = (data: RegisterCourse) => {
+  const url = Endpoint.REGISTER_COURSE
+  return axiosClient.post(url, data)
+}
+
+const unRegisterCourseApi = (data: RegisterCourse) => {
+  const url = Endpoint.UNREGISTER_COURSE
+  return axiosClient.post(url, data)
+}
+
 export {
   getCoursesWithPagApi, createCourseApi, getCourseCategoryApi, updateCourseApi,
-  getCourseDetailApi, delCourseApi
+  getCourseDetailApi, delCourseApi, registerCourseApi,
+  unRegisterCourseApi
 }

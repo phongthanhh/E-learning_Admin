@@ -9,5 +9,10 @@ export enum Endpoint {
   GET_COURSE_CATEGORY = '/QuanLyKhoaHoc/LayDanhMucKhoaHoc',
   GET_COURSE_DETAIL = '/QuanLyKhoaHoc/LayThongTinKhoaHoc',
   UPDATE_COURSE = '/QuanLyKhoaHoc/CapNhatKhoaHoc',
-  DEL_COURSE = '/QuanLyKhoaHoc/XoaKhoaHoc'
+  DEL_COURSE = '/QuanLyKhoaHoc/XoaKhoaHoc',
+  REGISTER_COURSE = '/QuanLyKhoaHoc/GhiDanhKhoaHoc',
+  UNREGISTER_COURSE = '/QuanLyKhoaHoc/HuyGhiDanh',
+  UNREGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh',
+  REGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
+  WAITING_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet'
 }

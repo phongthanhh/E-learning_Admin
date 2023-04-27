@@ -42,3 +42,7 @@ export interface CourseCategory {
 export interface CourseQuery {
   maKhoaHoc: string
 }
+
+export interface RegisterCourse extends CourseQuery {
+  taiKhoan: string
+}

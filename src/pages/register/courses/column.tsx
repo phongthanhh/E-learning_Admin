@@ -1,13 +1,11 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import React, { ReactNode } from 'react'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import styled from 'styled-components'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { COLORS } from 'themes'
-import { CourseQuery } from 'models'
-import Swal from 'sweetalert2'
+import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined'
+import { Storage } from 'constant'
 
 export const StyledButton = styled.div`
   .edit{
@@ -16,14 +14,18 @@ export const StyledButton = styled.div`
   .del{
     color:${COLORS.red}
   }
+  .pending{
+    color:${COLORS.yellow}
+  }
 `
 
 interface Params {
-  handleGetCourseToEdit: (courseParams: CourseQuery) => void,
-  handleDelCourse: (courseParams: CourseQuery) => void
+  onOpenInfoCourseModal: () => void
 }
 
-export default function columns({ handleGetCourseToEdit, handleDelCourse }: Params): GridColDef[] {
+export default function columns(
+  { onOpenInfoCourseModal }: Params
+): GridColDef[] {
   return (
     [
       { field: 'maKhoaHoc', headerName: 'Course type', width: 200 },
@@ -62,35 +64,16 @@ export default function columns({ handleGetCourseToEdit, handleDelCourse }: Para
         align: 'center',
         renderCell: (params: GridRenderCellParams): ReactNode => (
           <StyledButton>
-            <Tooltip title="Edit">
+            <Tooltip title="See list">
               <IconButton>
-                <EditOutlinedIcon
+                <QueryStatsOutlinedIcon
                   className="edit"
                   onClick={() => {
-                    handleGetCourseToEdit({ maKhoaHoc: params.row.maKhoaHoc })
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Delete">
-              <IconButton>
-                <DeleteOutlineOutlinedIcon
-                  className="del"
-                  onClick={() => {
-                    Swal.fire({
-                      title: 'Do you want to delete?',
-                      text: "You won't be able to revert this!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        handleDelCourse({ maKhoaHoc: params.row.maKhoaHoc })
-                      }
-                    })
+                    localStorage.setItem(
+                      Storage.COURSE_CODE,
+                      JSON.stringify({ maKhoaHoc: params.row.maKhoaHoc })
+                    )
+                    onOpenInfoCourseModal()
                   }}
                 />
               </IconButton>
