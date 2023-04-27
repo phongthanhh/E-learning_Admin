@@ -9,12 +9,13 @@ interface ButtonAction extends ButtonProps {
 
 interface Props {
   actions?: ButtonAction[]
-  dataGridProps: DataGridProps
+  dataGridProps: DataGridProps,
+  height?: number
 }
 
 function Table(props: Props) {
   // Props
-  const { actions = [], dataGridProps } = props
+  const { actions = [], dataGridProps, height } = props
   // End props
 
   const renderActions = useMemo(
@@ -36,7 +37,7 @@ function Table(props: Props) {
       <StyledActionsWrapper>
         {renderActions}
       </StyledActionsWrapper>
-      <Box sx={{ height: 600, width: '100%' }}>
+      <Box sx={{ height: height || 600, width: '100%' }}>
         <DataGrid paginationMode="server" {...dataGridProps} />
       </Box>
     </StyledContainer>
