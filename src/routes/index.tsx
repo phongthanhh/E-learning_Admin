@@ -1,5 +1,6 @@
 import { Loading } from 'components'
-import { Course } from 'pages'
+import { ROUTES_NAME } from 'constant'
+import { Course, CourseRegister, UserRegister } from 'pages'
 import SyncUser from 'pages/sync-user'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
@@ -11,11 +12,17 @@ function AppRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path={ROUTES_NAME.ADMIN} element={<AdminLayout />}>
           <Route index element={<User />} />
         </Route>
-        <Route path="/admin/course" element={<AdminLayout />}>
+        <Route path={ROUTES_NAME.COURSE} element={<AdminLayout />}>
           <Route index element={<Course />} />
+        </Route>
+        <Route path={ROUTES_NAME.COURSE_REGISTER} element={<AdminLayout />}>
+          <Route index element={<CourseRegister />} />
+        </Route>
+        <Route path={ROUTES_NAME.USERS_REGISTER} element={<AdminLayout />}>
+          <Route index element={<UserRegister />} />
         </Route>
         <Route path="/sync-user" element={<SyncUser />} />
       </Routes>
