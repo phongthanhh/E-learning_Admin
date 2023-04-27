@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
@@ -71,10 +70,10 @@ function CreateCourseModal(props: Props) {
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(createCourseSchema)
   })
-  const { handleSubmit, reset } = formMethods
+  const { handleSubmit, reset, setValue } = formMethods
 
   const onSubmit = useCallback((formData: CourseToCreate) => {
-    const newFormData = { ...formData, hinhAnh: img, taiKhoanNguoiTao: userLogin.taiKhoan }
+    const newFormData = { ...formData, taiKhoanNguoiTao: userLogin.taiKhoan }
     mutate(newFormData, {
       onSuccess: () => {
         toast.success('Create course successfully!')
@@ -83,7 +82,7 @@ function CreateCourseModal(props: Props) {
         reset(DEFAULT_VALUES)
       }
     })
-  }, [mutate, onClose, queryClient, reset, img])
+  }, [mutate, onClose, queryClient, reset])
 
   const courseCateQuery = useQuery({
     queryKey: [QUERY_KEY.COURSE_CATE],
@@ -108,13 +107,17 @@ function CreateCourseModal(props: Props) {
   const handleOnChangeFile = (e: any) => {
     const file = e.target.files[0]
     // setImg(URL.createObjectURL(file))
-    if (file) {
+    if (file.type === 'image/png'
+    || file.type === 'image/jpeg'
+    || file.type === 'image/gif'
+    || file.type === 'image/jpg') {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = (event) => {
         setImg(event.target?.result as string)
       }
     }
+    setValue('hinhAnh', file.name)
   }
   return (
     <DialogComponent
