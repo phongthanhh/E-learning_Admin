@@ -5,12 +5,19 @@ import { TransitionProps } from '@mui/material/transitions'
 import {
   ReactElement, ReactNode, forwardRef, memo
 } from 'react'
+import styled from 'styled-components'
+
+export const StyledDialog = styled.div`
+  .MuiPaper-elevation{
+    max-with
+  }
+`
 
 interface Props {
   dialogProps: DialogProps
   title: string
   children: ReactNode
-  actions: ReactNode
+  actions?: ReactNode
 }
 
 // eslint-disable-next-line react/display-name
@@ -24,14 +31,16 @@ function DialogComponent(props: Props) {
   // End props
 
   return (
-    <Dialog
-      TransitionComponent={Transition}
-      {...dialogProps}
-    >
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>{actions}</DialogActions>
-    </Dialog>
+    <StyledDialog>
+      <Dialog
+        TransitionComponent={Transition}
+        {...dialogProps}
+      >
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>{children}</DialogContent>
+        <DialogActions>{actions}</DialogActions>
+      </Dialog>
+    </StyledDialog>
   )
 }
 
