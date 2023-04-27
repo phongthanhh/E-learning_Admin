@@ -23,3 +23,12 @@ export interface UserNameParams {
 export interface ListResponse<T> extends PaginationResponse {
   items: T[]
 }
+
+export interface TabsProp {
+  label: string,
+  Component: React.ReactNode
+}
+
+export interface TabsListProps {
+  tabs: TabsProp[]
+}

@@ -20,3 +20,9 @@ export interface MemberType {
   maLoaiNguoiDung: string
   tenLoaiNguoiDung: string
 }
+
+export interface UserRegister {
+  taiKhoan: string,
+  hoTen: string,
+  biDanh: string
+}
