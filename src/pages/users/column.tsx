@@ -78,11 +78,6 @@ export default function columns({ handleSetUserToEdit, handleDelUser }: Params):
                     }).then((result) => {
                       if (result.isConfirmed) {
                         handleDelUser({ TaiKhoan: params.row.taiKhoan })
-                        Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
-                        )
                       }
                     })
                   }}
