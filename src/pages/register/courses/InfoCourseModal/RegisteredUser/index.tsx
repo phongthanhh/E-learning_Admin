@@ -16,7 +16,7 @@ function RegisteredUser({ courseCode }: Props) {
   const queryClient = useQueryClient()
 
   const registerQuery = useQuery({
-    queryKey: [QUERY_KEY.REGISTER_USERS],
+    queryKey: [QUERY_KEY.REGISTERED_USERS],
     queryFn: () => getUsersRegisterApi(courseCode),
     keepPreviousData: true
   })
@@ -33,13 +33,12 @@ function RegisteredUser({ courseCode }: Props) {
     unRegisterMutation.mutate(data, {
       onSuccess: () => {
         toast.success('UnRegistration successfully!')
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.REGISTER_USERS] })
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY.REGISTERED_USERS] })
       }
     })
   }
 
   return (
-
     <Table
       height={400}
       dataGridProps={{

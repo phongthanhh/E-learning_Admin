@@ -13,7 +13,7 @@ interface Props {
 
 function UnregisteredUser({ courseCode }: Props) {
   const unregisterQuery = useQuery({
-    queryKey: [QUERY_KEY.UNREGISTER_USERS],
+    queryKey: [QUERY_KEY.UNREGISTERED_USERS],
     queryFn: () => getUsersUnregisterApi(courseCode),
     keepPreviousData: true
   })
