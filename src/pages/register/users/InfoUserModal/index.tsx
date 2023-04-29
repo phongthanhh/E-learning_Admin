@@ -4,6 +4,7 @@ import {
   memo
 } from 'react'
 import ApprovedCourses from './ApprovedCourses'
+import UnregisteredCourses from './UnregisteredCourses'
 
 interface Props {
   open: boolean
@@ -19,7 +20,7 @@ function InfoUserModal({ open, onClose, userName }: Props) {
     },
     {
       label: 'Unregistered course',
-      Component: <div>helo2</div>
+      Component: <UnregisteredCourses userName={userName} />
     },
     {
       label: 'Waiting for approval',

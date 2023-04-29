@@ -60,8 +60,14 @@ const getRegisteredCourseOfUserApi = (data: UserNameQuery): Promise<CourseData[]
   return axiosClient.post(url, data)
 }
 
+const getUnregisteredCourseOfUserApi = (queryParams: UserNameParams): Promise<CourseData[]> => {
+  const q = queryString.stringify(queryParams)
+  const url = `${Endpoint.GET_UNREGISTER_COURSES}?${q}`
+  return axiosClient.post(url, queryParams)
+}
+
 export {
   getUsersWithPagApi, getMemberTypesApi,
   createUserApi, updateUserApi, delUserApi, getUsersUnregisterApi, getUsersRegisterApi,
-  getWaitingUsersApi, getRegisteredCourseOfUserApi
+  getWaitingUsersApi, getRegisteredCourseOfUserApi, getUnregisteredCourseOfUserApi
 }
