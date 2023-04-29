@@ -46,3 +46,7 @@ export interface CourseQuery {
 export interface RegisterCourse extends CourseQuery {
   taiKhoan: string
 }
+
+export interface CourseData extends CourseQuery {
+  tenKhoaHoc: string
+}

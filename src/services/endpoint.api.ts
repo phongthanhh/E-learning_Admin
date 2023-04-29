@@ -14,5 +14,8 @@ export enum Endpoint {
   UNREGISTER_COURSE = '/QuanLyKhoaHoc/HuyGhiDanh',
   UNREGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh',
   REGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
-  WAITING_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet'
+  WAITING_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
+  GET_REGISTERED_COURSES = '/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+  GET_UNREGISTER_COURSES = '/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh',
+  USER_WAITING_FOR_APPROVE = '/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet'
 }

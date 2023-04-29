@@ -26,3 +26,7 @@ export interface UserRegister {
   hoTen: string,
   biDanh: string
 }
+
+export interface UserNameQuery {
+  taiKhoan: string
+}
