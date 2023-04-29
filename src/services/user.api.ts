@@ -66,8 +66,14 @@ const getUnregisteredCourseOfUserApi = (queryParams: UserNameParams): Promise<Co
   return axiosClient.post(url, queryParams)
 }
 
+const getCoursesWaitingApproveApi = (data: UserNameQuery): Promise<CourseData[]> => {
+  const url = Endpoint.COURSES_WAITING_FOR_APPROVE
+  return axiosClient.post(url, data)
+}
+
 export {
   getUsersWithPagApi, getMemberTypesApi,
   createUserApi, updateUserApi, delUserApi, getUsersUnregisterApi, getUsersRegisterApi,
   getWaitingUsersApi, getRegisteredCourseOfUserApi, getUnregisteredCourseOfUserApi
+  , getCoursesWaitingApproveApi
 }

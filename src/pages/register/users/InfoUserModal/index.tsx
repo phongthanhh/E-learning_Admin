@@ -5,6 +5,7 @@ import {
 } from 'react'
 import ApprovedCourses from './ApprovedCourses'
 import UnregisteredCourses from './UnregisteredCourses'
+import WaitingCourses from './WaitingCourses'
 
 interface Props {
   open: boolean
@@ -24,13 +25,13 @@ function InfoUserModal({ open, onClose, userName }: Props) {
     },
     {
       label: 'Waiting for approval',
-      Component: <div>helo3</div>
+      Component: <WaitingCourses userName={userName} />
     }
   ]
   return (
     <DialogComponent
       dialogProps={{ open, onClose }}
-      title="Course Register"
+      title="User Register"
     >
       <BasicTabs tabs={tabs} />
     </DialogComponent>
