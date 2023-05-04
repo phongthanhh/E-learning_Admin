@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import { Button, Grid } from '@mui/material'
@@ -13,12 +11,9 @@ import {
 } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import {
-  createCourseApi, getCourseCategoryApi, updateCourseApi
-} from 'services'
+import { getCourseCategoryApi, updateCourseApi } from 'services'
 import { getCurrentDate } from 'utils'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
-import { NO_IMAGE } from 'assets'
 import { editCourseSchema } from './schema'
 
 interface Props {
@@ -113,9 +108,11 @@ function EditCourseModal({ open, onClose, courseToEdit }: Props) {
     </>
   ), [handleSubmit, onSubmit, onClose, isLoading])
 
-  const handleOnChangeFile = (e: any) => {
-    const file = e.target.files[0]
-    setImg(URL.createObjectURL(file))
+  const handleOnChangeFile = (e: { target: HTMLInputElement }) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      setImg(URL.createObjectURL(file))
+    }
   }
   return (
     <DialogComponent

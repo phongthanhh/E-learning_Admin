@@ -1,16 +1,13 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import { TabsListProps } from 'models'
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
-  value: number;
+  value: number
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -50,13 +47,13 @@ export default function BasicTabs({ tabs }: TabsListProps) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          {tabs.map(({ label }, i) => (
-            <Tab label={label} key={i} />
+          {tabs.map(({ label, id }) => (
+            <Tab label={label} key={id} />
           ))}
         </Tabs>
       </Box>
-      {tabs.map(({ Component }, i) => (
-        <TabPanel value={value} index={i} key={i}>
+      {tabs.map(({ Component, id }) => (
+        <TabPanel value={value} index={id} key={id}>
           {Component}
         </TabPanel>
       ))}

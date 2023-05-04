@@ -16,14 +16,17 @@ interface Props {
 function InfoUserModal({ open, onClose, userName }: Props) {
   const tabs = [
     {
+      id: 0,
       label: 'Registered course',
       Component: <ApprovedCourses userName={userName} />
     },
     {
+      id: 1,
       label: 'Unregistered course',
       Component: <UnregisteredCourses userName={userName} />
     },
     {
+      id: 2,
       label: 'Waiting for approval',
       Component: <WaitingCourses userName={userName} />
     }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Divider, Paper } from '@mui/material'
 import { GridPaginationModel } from '@mui/x-data-grid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -8,16 +7,14 @@ import { useQueryParams } from 'hooks'
 import {
   ICourse,
   CourseQuery,
-  CourseToCreate,
-  Pagination, SearchParams, UserNameParams, UserToEdit
+  Pagination, SearchParams
 } from 'models'
 import queryString from 'query-string'
 import { useCallback, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import {
-  delCourseApi, delUserApi, getCourseDetailApi, getCoursesWithPagApi
+  delCourseApi, getCourseDetailApi, getCoursesWithPagApi
 } from 'services'
 import { uid } from 'utils'
 import columns from './column'

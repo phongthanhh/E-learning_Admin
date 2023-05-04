@@ -22,14 +22,18 @@ function InfoCourseModal(props: Props) {
   }
   const tabs = [
     {
+      id: 0,
       label: 'Registered users',
       Component: <RegisteredUser courseCode={courseCode} />
     },
     {
+      id: 1,
+
       label: 'Unregistered users',
       Component: <UnregisteredUser courseCode={courseCode} />
     },
     {
+      id: 2,
       label: 'Waiting for approval',
       Component: <WaitingUsers courseCode={courseCode} />
     }

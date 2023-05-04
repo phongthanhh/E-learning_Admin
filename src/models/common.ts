@@ -26,7 +26,8 @@ export interface ListResponse<T> extends PaginationResponse {
 
 export interface TabsProp {
   label: string,
-  Component: React.ReactNode
+  Component: React.ReactNode,
+  id: number
 }
 
 export interface TabsListProps {
