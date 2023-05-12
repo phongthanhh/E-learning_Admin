@@ -12,8 +12,9 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 import { Outlet } from 'react-router'
+import HomeIcon from '@mui/icons-material/Home'
+import { USER_URL } from 'constant'
 import { AppBar, Drawer } from './styled'
 import Sidebar from './Sidebar'
 
@@ -23,6 +24,9 @@ function AdminLayout() {
   const [open, setOpen] = React.useState(true)
   const toggleDrawer = () => {
     setOpen(!open)
+  }
+  const redirectToUserPage = () => {
+    window.location.replace(`${USER_URL}`)
   }
 
   return (
@@ -56,9 +60,10 @@ function AdminLayout() {
             >
               Admin
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+            <IconButton color="inherit" onClick={redirectToUserPage}>
+              <Badge color="secondary">
+                <HomeIcon />
+                Home
               </Badge>
             </IconButton>
           </Toolbar>

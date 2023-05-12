@@ -5,5 +5,5 @@ export const ROUTES_NAME = {
   REGISTER: '/admin/register',
   USERS_REGISTER: '/admin/register/users',
   COURSE_REGISTER: '/admin/register/courses',
-  SYNC_USER: '/sync-user'
+  SYNC_ADMIN: '/sync-admin'
 }
