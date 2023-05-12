@@ -12,7 +12,7 @@ function AppRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path={ROUTES_NAME.ADMIN} element={<AdminLayout />}>
+        <Route path={ROUTES_NAME.USERS} element={<AdminLayout />}>
           <Route index element={<User />} />
         </Route>
         <Route path={ROUTES_NAME.COURSE} element={<AdminLayout />}>

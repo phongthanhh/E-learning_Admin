@@ -15,7 +15,7 @@ import { ROUTES_NAME } from 'constant'
 
 const MENU = [
   {
-    id: uid(), icon: ManageAccountsOutlinedIcon, name: 'Quản lý người dùng', path: ROUTES_NAME.ADMIN
+    id: uid(), icon: ManageAccountsOutlinedIcon, name: 'Quản lý người dùng', path: ROUTES_NAME.USERS
   },
   {
     id: uid(), icon: LibraryBooksOutlinedIcon, name: 'Quản lý khóa học', path: ROUTES_NAME.COURSE
