@@ -9,8 +9,8 @@ interface Props {
 
 export function ProtectedRoute({ children }: Props) {
   const queryClient = useQueryClient()
-  const adminInfo = queryClient.getQueryData([QUERY_KEY.ADMIN_INFO])
-  if (adminInfo) {
+  const authenticated = queryClient.getQueryData([QUERY_KEY.ADMIN_INFO])
+  if (!authenticated) {
     return <Navigate to={ROUTES_NAME.SIGN_OUT} replace />
   }
 
