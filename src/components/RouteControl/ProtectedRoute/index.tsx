@@ -14,7 +14,7 @@ export function ProtectedRoute({ children }: Props) {
   const adminInfo: Admin | undefined = queryClient.getQueryData([QUERY_KEY.ADMIN_INFO])
 
   if (adminInfo?.authenticated === false) {
-    return <Navigate to={ROUTES_NAME.SIGN_OUT} replace />
+    return <Navigate to={ROUTES_NAME.REQUEST_SIGN_OUT} replace />
   }
 
   return children || <Outlet />

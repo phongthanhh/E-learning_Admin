@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 export const StyledContainer = styled(Box)`
   padding: 1rem;
-  background-color: white;
 `
 
 export const StyledActionsWrapper = styled(Box)`

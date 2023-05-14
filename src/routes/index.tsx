@@ -1,7 +1,7 @@
 import { Loading, ProtectedRoute } from 'components'
 import { ROUTES_NAME } from 'constant'
 import {
-  Course, CourseRegister, HomeAdmin, UserRegister
+  Course, CourseRegister, HomeAdmin, RequestSignOut, UserRegister
 } from 'pages'
 import SyncUser from 'pages/sync-user'
 import { lazy, Suspense } from 'react'
@@ -21,7 +21,8 @@ function AppRoutes() {
           <Route path={ROUTES_NAME.COURSE_REGISTER} element={<CourseRegister />} />
           <Route path={ROUTES_NAME.USERS_REGISTER} element={<UserRegister />} />
         </Route>
-        <Route path="/sync-user" element={<SyncUser />} />
+        <Route path={ROUTES_NAME.SYNC_USER} element={<SyncUser />} />
+        <Route path={ROUTES_NAME.REQUEST_SIGN_OUT} element={<RequestSignOut />} />
       </Routes>
     </Suspense>
   )

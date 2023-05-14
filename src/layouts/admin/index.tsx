@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -12,22 +13,69 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import { Outlet } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 import HomeIcon from '@mui/icons-material/Home'
-import { USER_URL } from 'constant'
-import { AppBar, Drawer } from './styled'
+import { QUERY_KEY, ROUTES_NAME, USER_URL } from 'constant'
+import { useQueryClient } from '@tanstack/react-query'
+import Tooltip from '@mui/material/Tooltip'
+import Avatar from '@mui/material/Avatar'
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
+import { Admin } from 'models'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import { uid } from 'utils'
+import {
+  AppBar, Drawer, InfoStyled, MaterialUISwitch
+} from './styled'
 import Sidebar from './Sidebar'
 
-const mdTheme = createTheme()
+const mdTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#1976d2'
+    }
+  }
+})
 
 function AdminLayout() {
+  const navigate = useNavigate()
+
   const [open, setOpen] = React.useState(true)
+
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget)
+  }
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
+  }
+
   const toggleDrawer = () => {
     setOpen(!open)
   }
-  const redirectToUserPage = () => {
+  const redirectToUserPage = React.useCallback(() => {
     window.location.replace(`${USER_URL}`)
-  }
+  }, [])
+
+  const settings = React.useMemo(() => [
+    {
+      id: uid(),
+      name: 'User page',
+      onClick: redirectToUserPage
+    },
+    {
+      id: uid(),
+      name: 'Sign out',
+      onClick: () => navigate(ROUTES_NAME.REQUEST_SIGN_OUT)
+    }
+  ], [redirectToUserPage, navigate])
+
+  const queryClient = useQueryClient()
+
+  const adminInfo: Admin | undefined = queryClient.getQueryData([QUERY_KEY.ADMIN_INFO])
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -58,14 +106,58 @@ function AdminLayout() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin
+              <IconButton color="inherit" onClick={redirectToUserPage}>
+                <Badge color="secondary">
+                  <HomeIcon />
+                  USER
+                </Badge>
+              </IconButton>
             </Typography>
-            <IconButton color="inherit" onClick={redirectToUserPage}>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <InfoStyled>
+                <Typography>{adminInfo?.hoTen}</Typography>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" src="https://i.pravatar.cc/150?u=63453463" />
+                  </IconButton>
+                </Tooltip>
+              </InfoStyled>
+
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting.id}
+                    onClick={setting.onClick}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+
+            </Box>
+
+            {/* <IconButton color="inherit" onClick={redirectToUserPage}>
               <Badge color="secondary">
                 <HomeIcon />
                 Home
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
