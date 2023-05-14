@@ -16,7 +16,7 @@ import { ROUTES_NAME } from 'constant'
 
 const MENU = [
   {
-    id: uid(), icon: HomeOutlinedIcon, name: 'Home', path: ROUTES_NAME.ADMIN
+    id: uid(), icon: HomeOutlinedIcon, name: 'Home', path: ROUTES_NAME.ROOT
   },
   {
     id: uid(), icon: ManageAccountsOutlinedIcon, name: 'User management', path: ROUTES_NAME.USERS

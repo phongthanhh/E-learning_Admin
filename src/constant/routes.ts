@@ -1,10 +1,10 @@
 export const ROUTES_NAME = {
   ROOT: '/',
-  ADMIN: '/admin',
-  USERS: '/admin/users',
-  COURSE: '/admin/course',
-  REGISTER: '/admin/register',
-  USERS_REGISTER: '/admin/register/users',
-  COURSE_REGISTER: '/admin/register/courses',
-  SYNC_ADMIN: '/sync-admin'
+  USERS: '/users',
+  COURSE: '/course',
+  REGISTER: '/register',
+  USERS_REGISTER: '/register/users',
+  COURSE_REGISTER: '/register/courses',
+  SYNC_ADMIN: '/sync-admin',
+  SIGN_OUT: '/sign-out'
 }
