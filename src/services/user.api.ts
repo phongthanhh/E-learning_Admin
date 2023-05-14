@@ -2,7 +2,7 @@ import { GROUP_CODE } from 'constant'
 import {
   ListResponse, MemberType,
   SearchParams, User, UserNameParams, UserToCreate,
-  UserRegister, CourseQuery, CourseData, UserNameQuery
+  UserRegister, CourseQuery, CourseData, UserNameQuery, Admin
 } from 'models'
 import queryString from 'query-string'
 import axiosClient from './api'
@@ -71,9 +71,14 @@ const getCoursesWaitingApproveApi = (data: UserNameQuery): Promise<CourseData[]>
   return axiosClient.post(url, data)
 }
 
+const getAdminInfoApi = (): Promise<Admin> => {
+  const url = Endpoint.GET_ADMIN_INFO
+  return axiosClient.post(url)
+}
+
 export {
   getUsersWithPagApi, getMemberTypesApi,
   createUserApi, updateUserApi, delUserApi, getUsersUnregisterApi, getUsersRegisterApi,
   getWaitingUsersApi, getRegisteredCourseOfUserApi, getUnregisteredCourseOfUserApi
-  , getCoursesWaitingApproveApi
+  , getCoursesWaitingApproveApi, getAdminInfoApi
 }

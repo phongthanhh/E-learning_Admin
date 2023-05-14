@@ -8,6 +8,11 @@ export interface User {
   tenLoaiNguoiDung: string
 }
 
+export interface Admin extends Omit<User, 'tenLoaiNguoiDung'> {
+  matKhau: string,
+  authenticated: boolean
+}
+
 export interface UserToCreate extends Omit<User, 'tenLoaiNguoiDung'> {
   matKhau: string
 }

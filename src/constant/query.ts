@@ -8,5 +8,6 @@ export const QUERY_KEY = {
   WAITING_USERS: 'waitingUsers',
   APPROVED_COURSE: 'approvedCourse',
   UNREGISTERED_USERS_COURSE: 'unregisteredUserCourse',
-  COURSES_OF_USER_WAITING_APPROVAL: 'coursesOfUserWaitingApproval'
+  COURSES_OF_USER_WAITING_APPROVAL: 'coursesOfUserWaitingApproval',
+  ADMIN_INFO: 'adminInfo'
 }
