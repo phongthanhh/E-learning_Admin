@@ -5,6 +5,7 @@ import {
   UserRegister, CourseQuery, CourseData, UserNameQuery, Admin
 } from 'models'
 import queryString from 'query-string'
+import { AxiosResponse } from 'axios'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
@@ -73,7 +74,9 @@ const getCoursesWaitingApproveApi = (data: UserNameQuery): Promise<CourseData[]>
 
 const getAdminInfoApi = (): Promise<Admin | false> => {
   const url = Endpoint.GET_ADMIN_INFO
-  return axiosClient.post(url).then((res) => res.data).catch(() => false)
+  return axiosClient.post(url)
+    .then((res: AxiosResponse['data']) => ({ ...res, authenticated: true }))
+    .catch(() => ({ authenticated: false }))
 }
 
 export {
