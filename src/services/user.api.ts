@@ -71,9 +71,9 @@ const getCoursesWaitingApproveApi = (data: UserNameQuery): Promise<CourseData[]>
   return axiosClient.post(url, data)
 }
 
-const getAdminInfoApi = (): Promise<Admin> => {
+const getAdminInfoApi = (): Promise<Admin | false> => {
   const url = Endpoint.GET_ADMIN_INFO
-  return axiosClient.post(url)
+  return axiosClient.post(url).then((res) => res.data).catch(() => false)
 }
 
 export {
