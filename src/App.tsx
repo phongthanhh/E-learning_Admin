@@ -10,7 +10,6 @@ function App() {
   const adminInfoQuery = useQuery({
     queryKey: [QUERY_KEY.ADMIN_INFO],
     queryFn: () => getAdminInfoApi(),
-    initialData: () => ({}),
     enabled: Boolean(accessTokenLocal),
     retry: 0
   })
