@@ -11,25 +11,29 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined'
 import TurnedInNotRoundedIcon from '@mui/icons-material/TurnedInNotRounded'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import { ROUTES_NAME } from 'constant'
 
 const MENU = [
   {
-    id: uid(), icon: ManageAccountsOutlinedIcon, name: 'Quản lý người dùng', path: ROUTES_NAME.USERS
+    id: uid(), icon: HomeOutlinedIcon, name: 'Home', path: ROUTES_NAME.ADMIN
   },
   {
-    id: uid(), icon: LibraryBooksOutlinedIcon, name: 'Quản lý khóa học', path: ROUTES_NAME.COURSE
+    id: uid(), icon: ManageAccountsOutlinedIcon, name: 'User management', path: ROUTES_NAME.USERS
+  },
+  {
+    id: uid(), icon: LibraryBooksOutlinedIcon, name: 'Course management', path: ROUTES_NAME.COURSE
   },
   {
     id: uid(),
     icon: AppRegistrationOutlinedIcon,
-    name: 'Ghi danh',
+    name: 'Register',
     path: ROUTES_NAME.REGISTER,
     childItem: [{
-      id: uid(), icon: TurnedInNotRoundedIcon, name: 'Theo khóa học', path: ROUTES_NAME.COURSE_REGISTER
+      id: uid(), icon: TurnedInNotRoundedIcon, name: 'By course', path: ROUTES_NAME.COURSE_REGISTER
     },
     {
-      id: uid(), icon: AssignmentIndOutlinedIcon, name: 'Theo người dùng', path: ROUTES_NAME.USERS_REGISTER
+      id: uid(), icon: AssignmentIndOutlinedIcon, name: 'By user', path: ROUTES_NAME.USERS_REGISTER
     }
     ]
   }
