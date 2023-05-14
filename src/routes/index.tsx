@@ -1,4 +1,4 @@
-import { Loading } from 'components'
+import { Loading, ProtectedRoute } from 'components'
 import { ROUTES_NAME } from 'constant'
 import {
   Course, CourseRegister, HomeAdmin, UserRegister
@@ -14,20 +14,12 @@ function AppRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path={ROUTES_NAME.ADMIN} element={<AdminLayout />}>
+        <Route path={ROUTES_NAME.ROOT} element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<HomeAdmin />} />
-        </Route>
-        <Route path={ROUTES_NAME.USERS} element={<AdminLayout />}>
-          <Route index element={<User />} />
-        </Route>
-        <Route path={ROUTES_NAME.COURSE} element={<AdminLayout />}>
-          <Route index element={<Course />} />
-        </Route>
-        <Route path={ROUTES_NAME.COURSE_REGISTER} element={<AdminLayout />}>
-          <Route index element={<CourseRegister />} />
-        </Route>
-        <Route path={ROUTES_NAME.USERS_REGISTER} element={<AdminLayout />}>
-          <Route index element={<UserRegister />} />
+          <Route path={ROUTES_NAME.USERS} element={<User />} />
+          <Route path={ROUTES_NAME.COURSE} element={<Course />} />
+          <Route path={ROUTES_NAME.COURSE_REGISTER} element={<CourseRegister />} />
+          <Route path={ROUTES_NAME.USERS_REGISTER} element={<UserRegister />} />
         </Route>
         <Route path="/sync-user" element={<SyncUser />} />
       </Routes>

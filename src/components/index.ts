@@ -5,6 +5,7 @@ import Toast from './Toast'
 import DialogComponent from './DialogComponent'
 import BasicTabs from './Tabs'
 
+export * from './RouteControl'
 export * from './FormControl'
 export {
   SearchBox, Loading, Table, Toast, DialogComponent, BasicTabs
