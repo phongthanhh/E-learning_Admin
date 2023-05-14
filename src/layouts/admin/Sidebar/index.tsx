@@ -6,7 +6,7 @@ import {
   Collapse, List, ListItemButton, ListItemIcon, ListItemText
 } from '@mui/material'
 import { memo, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined'
@@ -40,6 +40,7 @@ const MENU = [
 ]
 
 function Sidebar() {
+  const location = useLocation()
   const navigate = useNavigate()
   const [open, setOpen] = useState(true)
 
@@ -66,6 +67,7 @@ function Sidebar() {
                       key={item.id}
                       sx={{ pl: 3 }}
                       onClick={() => navigate(item.path)}
+                      selected={item.path === location.pathname}
                     >
                       <ListItemIcon>
                         <item.icon />
@@ -79,7 +81,11 @@ function Sidebar() {
           )
         }
         return (
-          <ListItemButton key={menu.id} onClick={() => navigate(menu.path)}>
+          <ListItemButton
+            selected={menu.path === location.pathname}
+            key={menu.id}
+            onClick={() => navigate(menu.path)}
+          >
             <ListItemIcon>
               <menu.icon />
             </ListItemIcon>
