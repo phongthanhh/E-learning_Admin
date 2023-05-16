@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { BASE_URL, Storage, TOKEN_CYBER } from 'constant'
 import { toast } from 'react-toastify'
@@ -33,7 +32,8 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
-    return response.data // Just get data from response
+    const { data } = response
+    return data // Just get data from response
   },
   (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger

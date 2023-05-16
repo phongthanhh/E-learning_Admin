@@ -1,12 +1,4 @@
-// const StyledContainer = styled(Box)`
-//   height: 100vh;
-
 import { StyledContainer } from './styled'
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `
 
 function Loading() {
   return (

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import { Button, Grid } from '@mui/material'
@@ -23,6 +22,9 @@ import { createCourseSchema } from './schema'
 interface Props {
   open: boolean
   onClose: () => void
+}
+interface Event<T = EventTarget> {
+  target: T;
 }
 
 interface UserLogin {
@@ -104,20 +106,21 @@ function CreateCourseModal(props: Props) {
     </>
   ), [handleSubmit, onSubmit, onClose, isLoading])
 
-  const handleOnChangeFile = (e: any) => {
-    const file = e.target.files[0]
-    // setImg(URL.createObjectURL(file))
-    if (file.type === 'image/png'
-    || file.type === 'image/jpeg'
-    || file.type === 'image/gif'
-    || file.type === 'image/jpg') {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = (event) => {
-        setImg(event.target?.result as string)
+  const handleOnChangeFile = (e: Event<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]
+      if (file.type === 'image/png'
+      || file.type === 'image/jpeg'
+      || file.type === 'image/gif'
+      || file.type === 'image/jpg') {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = (event) => {
+          setImg(event.target?.result as string)
+        }
       }
+      setValue('hinhAnh', file.name)
     }
-    setValue('hinhAnh', file.name)
   }
   return (
     <DialogComponent
