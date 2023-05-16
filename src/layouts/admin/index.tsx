@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -8,13 +7,11 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import { Outlet, useNavigate } from 'react-router'
-import HomeIcon from '@mui/icons-material/Home'
+import { Outlet, useLocation, useNavigate } from 'react-router'
 import { QUERY_KEY, ROUTES_NAME, USER_URL } from 'constant'
 import { useQueryClient } from '@tanstack/react-query'
 import Tooltip from '@mui/material/Tooltip'
@@ -22,12 +19,42 @@ import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import { Admin } from 'models'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import { uid } from 'utils'
-import {
-  AppBar, Drawer, InfoStyled, MaterialUISwitch
-} from './styled'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import { SvgIconTypeMap } from '@mui/material/SvgIcon'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined'
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined'
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined'
+import TurnedInNotRoundedIcon from '@mui/icons-material/TurnedInNotRounded'
 import Sidebar from './Sidebar'
+import {
+  AppBar, Drawer, InfoStyled, StyledTitleWrapper
+} from './styled'
+
+const renderTitle = ({ name, icon: Icon }:
+{ name: string, icon: OverridableComponent<SvgIconTypeMap<object, 'svg'>> & { muiName: string; } }) => (
+  <StyledTitleWrapper>
+    <Icon />
+    <Typography
+      component="h1"
+      variant="h6"
+      color="inherit"
+      noWrap
+    >
+      {name}
+    </Typography>
+  </StyledTitleWrapper>
+
+)
+
+const titleMapping = {
+  [ROUTES_NAME.ROOT]: renderTitle({ name: 'Home', icon: HomeOutlinedIcon }),
+  [ROUTES_NAME.USERS]: renderTitle({ name: 'User management', icon: ManageAccountsOutlinedIcon }),
+  [ROUTES_NAME.COURSE]: renderTitle({ name: 'Course management', icon: LibraryBooksOutlinedIcon }),
+  [ROUTES_NAME.COURSE_REGISTER]: renderTitle({ name: 'Register by course', icon: TurnedInNotRoundedIcon }),
+  [ROUTES_NAME.USERS_REGISTER]: renderTitle({ name: 'Register by user', icon: AssignmentIndOutlinedIcon })
+}
 
 const mdTheme = createTheme({
   palette: {
@@ -40,6 +67,7 @@ const mdTheme = createTheme({
 
 function AdminLayout() {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const [open, setOpen] = React.useState(true)
 
@@ -99,20 +127,7 @@ function AdminLayout() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              <IconButton color="inherit" onClick={redirectToUserPage}>
-                <Badge color="secondary">
-                  <HomeIcon />
-                  USER
-                </Badge>
-              </IconButton>
-            </Typography>
+            {titleMapping[pathname]}
 
             <Box sx={{ flexGrow: 0 }}>
               <InfoStyled>
