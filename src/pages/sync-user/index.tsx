@@ -1,5 +1,5 @@
 import { Loading } from 'components'
-import { Storage } from 'constant'
+import { ROUTES_NAME, Storage } from 'constant'
 import { useQueryParams } from 'hooks'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
@@ -22,7 +22,8 @@ function SyncUser() {
     if (Object.keys(queryParams).length) {
       const { accessToken = '' } = queryParams
       localStorage.setItem(Storage.ACCESS_TOKEN, accessToken)
-      navigate('/admin')
+      localStorage.setItem(Storage.USER_LOGIN, JSON.stringify(queryParams))
+      navigate(ROUTES_NAME.ROOT)
     }
   }, [queryParams, navigate])
 

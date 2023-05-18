@@ -13,6 +13,7 @@ export interface Pagination {
 export interface SearchParams extends Pagination {
   MaNhom?: string
   tuKhoa?: string
+  tenKhoaHoc?: string
 }
 
 export interface UserNameParams {
@@ -21,4 +22,14 @@ export interface UserNameParams {
 
 export interface ListResponse<T> extends PaginationResponse {
   items: T[]
+}
+
+export interface TabsProp {
+  label: string,
+  Component: React.ReactNode,
+  id: number
+}
+
+export interface TabsListProps {
+  tabs: TabsProp[]
 }

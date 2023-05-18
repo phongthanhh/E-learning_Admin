@@ -3,5 +3,20 @@ export enum Endpoint {
   GET_MEMBER_TYPES = '/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung',
   CREATE_USER = '/QuanLyNguoiDung/ThemNguoiDung',
   UPDATE_USER = '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
-  DEL_USER = '/QuanLyNguoiDung/XoaNguoiDung'
+  DEL_USER = '/QuanLyNguoiDung/XoaNguoiDung',
+  GET_COURSE_WITH_PAG = '/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang',
+  CREATE_COURSE = '/QuanLyKhoaHoc/ThemKhoaHoc',
+  GET_COURSE_CATEGORY = '/QuanLyKhoaHoc/LayDanhMucKhoaHoc',
+  GET_COURSE_DETAIL = '/QuanLyKhoaHoc/LayThongTinKhoaHoc',
+  UPDATE_COURSE = '/QuanLyKhoaHoc/CapNhatKhoaHoc',
+  DEL_COURSE = '/QuanLyKhoaHoc/XoaKhoaHoc',
+  REGISTER_COURSE = '/QuanLyKhoaHoc/GhiDanhKhoaHoc',
+  UNREGISTER_COURSE = '/QuanLyKhoaHoc/HuyGhiDanh',
+  UNREGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh',
+  REGISTER_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
+  WAITING_USERS = '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
+  GET_REGISTERED_COURSES = '/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+  GET_UNREGISTER_COURSES = '/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh',
+  COURSES_WAITING_FOR_APPROVE = '/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+  GET_ADMIN_INFO = '/QuanLyNguoiDung/ThongTinTaiKhoan'
 }

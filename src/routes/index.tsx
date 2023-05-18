@@ -1,4 +1,8 @@
-import { Loading } from 'components'
+import { Loading, ProtectedRoute } from 'components'
+import { ROUTES_NAME } from 'constant'
+import {
+  Course, CourseRegister, HomeAdmin, RequestSignOut, UserRegister
+} from 'pages'
 import SyncUser from 'pages/sync-user'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
@@ -10,10 +14,15 @@ function AppRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<User />} />
+        <Route path={ROUTES_NAME.ROOT} element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route index element={<HomeAdmin />} />
+          <Route path={ROUTES_NAME.USERS} element={<User />} />
+          <Route path={ROUTES_NAME.COURSE} element={<Course />} />
+          <Route path={ROUTES_NAME.COURSE_REGISTER} element={<CourseRegister />} />
+          <Route path={ROUTES_NAME.USERS_REGISTER} element={<UserRegister />} />
         </Route>
-        <Route path="/sync-user" element={<SyncUser />} />
+        <Route path={ROUTES_NAME.SYNC_USER} element={<SyncUser />} />
+        <Route path={ROUTES_NAME.REQUEST_SIGN_OUT} element={<RequestSignOut />} />
       </Routes>
     </Suspense>
   )

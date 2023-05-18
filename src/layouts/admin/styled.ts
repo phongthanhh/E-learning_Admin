@@ -1,6 +1,7 @@
 import MuiDrawer from '@mui/material/Drawer'
 import { styled } from '@mui/material/styles'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import styledComponent from 'styled-components'
 
 const drawerWidth = 240
 interface AppBarProps extends MuiAppBarProps {
@@ -50,3 +51,16 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 
     }
   })
 )
+
+export const InfoStyled = styledComponent.div`
+  display: flex;
+  align-items:center;
+  gap:10px
+`
+
+export const StyledTitleWrapper = styledComponent.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-grow: 1;
+`

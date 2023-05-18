@@ -8,6 +8,11 @@ export interface User {
   tenLoaiNguoiDung: string
 }
 
+export interface Admin extends Omit<User, 'tenLoaiNguoiDung'> {
+  matKhau: string,
+  authenticated: boolean
+}
+
 export interface UserToCreate extends Omit<User, 'tenLoaiNguoiDung'> {
   matKhau: string
 }
@@ -19,4 +24,14 @@ export interface UserToEdit extends UserToCreate {
 export interface MemberType {
   maLoaiNguoiDung: string
   tenLoaiNguoiDung: string
+}
+
+export interface UserRegister {
+  taiKhoan: string,
+  hoTen: string,
+  biDanh: string
+}
+
+export interface UserNameQuery {
+  taiKhoan: string
 }

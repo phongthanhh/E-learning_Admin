@@ -1,8 +1,11 @@
 import { GROUP_CODE } from 'constant'
 import {
-  ListResponse, MemberType, SearchParams, User, UserNameParams, UserToCreate
+  ListResponse, MemberType,
+  SearchParams, User, UserNameParams, UserToCreate,
+  UserRegister, CourseQuery, CourseData, UserNameQuery, Admin
 } from 'models'
 import queryString from 'query-string'
+import { AxiosResponse } from 'axios'
 import axiosClient from './api'
 import { Endpoint } from './endpoint.api'
 
@@ -38,6 +41,47 @@ const delUserApi = (queryParams: UserNameParams) => {
   return axiosClient.delete(url)
 }
 
+const getUsersUnregisterApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.UNREGISTER_USERS
+  return axiosClient.post(url, data)
+}
+
+const getUsersRegisterApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.REGISTER_USERS
+  return axiosClient.post(url, data)
+}
+
+const getWaitingUsersApi = (data: CourseQuery): Promise<UserRegister[]> => {
+  const url = Endpoint.WAITING_USERS
+  return axiosClient.post(url, data)
+}
+
+const getRegisteredCourseOfUserApi = (data: UserNameQuery): Promise<CourseData[]> => {
+  const url = Endpoint.GET_REGISTERED_COURSES
+  return axiosClient.post(url, data)
+}
+
+const getUnregisteredCourseOfUserApi = (queryParams: UserNameParams): Promise<CourseData[]> => {
+  const q = queryString.stringify(queryParams)
+  const url = `${Endpoint.GET_UNREGISTER_COURSES}?${q}`
+  return axiosClient.post(url, queryParams)
+}
+
+const getCoursesWaitingApproveApi = (data: UserNameQuery): Promise<CourseData[]> => {
+  const url = Endpoint.COURSES_WAITING_FOR_APPROVE
+  return axiosClient.post(url, data)
+}
+
+const getAdminInfoApi = (): Promise<Admin | false> => {
+  const url = Endpoint.GET_ADMIN_INFO
+  return axiosClient.post(url)
+    .then((res: AxiosResponse['data']) => ({ ...res, authenticated: true }))
+    .catch(() => ({ authenticated: false }))
+}
+
 export {
-  getUsersWithPagApi, getMemberTypesApi, createUserApi, updateUserApi, delUserApi
+  getUsersWithPagApi, getMemberTypesApi,
+  createUserApi, updateUserApi, delUserApi, getUsersUnregisterApi, getUsersRegisterApi,
+  getWaitingUsersApi, getRegisteredCourseOfUserApi, getUnregisteredCourseOfUserApi
+  , getCoursesWaitingApproveApi, getAdminInfoApi
 }
